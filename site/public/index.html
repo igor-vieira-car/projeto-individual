@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Projeto idividuas</title>
+</head>
+
+<body>
+  <div class="imagem">
+  </div>
+
+  <nav>
+    <div>
+      log
+    </div>
+    <ul id="listHome">
+      <li><a href="">a</a> </li>
+
+      <li><a href="">a</a></li>
+
+      <li><a href="login.html">a</a></li>
+
+      <li><a href="cadastro.html">a</a></li>
+    </ul>
+
+    <div id="">
+      <button>Login</button>
+      <button>Cadastro</button>
+    </div>
+  </nav>
+
+  <div id="carousel">
+
+    <button onclick="voltar()">""</button>
+        <div id="imagemCarousel">
+        </div>
+        <button onclick="passar()">""</button>
+  </div>
+  <img src="" alt="">
+</body>
+
+</html>
+
+<script>
+  var carousel = 1;
+
+
+  
+  function passar() {
+    carousel ++;
+    if (carousel == 1) {
+      imagemCarousel.innerHTML = `aaaaaaaaaaaaaaaaa`
+    }else if (carousel == 2) {
+      imagemCarousel.innerHTML = `b`
+    }else if (carousel == 3) {
+      imagemCarousel.innerHTML = `c`
+    }
+  }
+  
+  function voltar() {
+    carousel --;
+    
+    if (carousel == 1) {
+      imagemCarousel.innerHTML = `aaaaaaaaaaaaaaaaa`
+    }else if (carousel == 2) {
+      imagemCarousel.innerHTML = `b`
+    }else if (carousel == 3) {
+      imagemCarousel.innerHTML = `c`
+    }
+  }
+</script>

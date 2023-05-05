@@ -1,0 +1,36 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+/*                          INICIO DA HOME                                   */
+nav{
+    border-bottom: 1px solid;
+    display: flex;
+    align-items: center;
+    height: 10vh;
+    justify-content: space-around;
+}
+#listHome{
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    
+}
+
+#listHome li{
+    list-style: none;
+    
+}
+
+#listHome li a{
+    list-style: none;
+    text-decoration: none;
+}
+/*                       FIM DA HOME                                         */
+
+/*                       INÍCIO DA CAROUSEL                                  */
+#carousel{
+    display: flex;
+    
+}
