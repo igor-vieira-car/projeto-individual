@@ -3,7 +3,10 @@ var mysql = require("mysql2");
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-
+    server: "localhost",
+    database: "mangaVerse",
+    user: "aluno",
+    password: "sptech",
     pool: {
         max: 10,
         min: 0,
@@ -16,7 +19,10 @@ var sqlServerConfig = {
 
 // CONEXÃO DO MYSQL WORKBENCH (LOCAL)
 var mySqlConfig = {
- 
+    server: "localhost",
+    database: "mangaVerse",
+    user: "aluno",
+    password: "sptech",
 };
 
 function executar(instrucao) {
