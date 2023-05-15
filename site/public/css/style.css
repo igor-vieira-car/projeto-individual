@@ -39,6 +39,7 @@ nav {
 #listHome li a:hover {
     transition: all 0.5s;
     border-bottom: 1px solid;
+    border-radius: 10px;
     color: #000000;
 }
 

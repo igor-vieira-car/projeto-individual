@@ -4,7 +4,7 @@ var mysql = require("mysql2");
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
     server: "localhost",
-    database: "mangaVerse",
+    database: "mangaverse",
     user: "aluno",
     password: "sptech",
     pool: {

@@ -1,0 +1,62 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+}
+
+.livro {
+    width: 51%;
+    height: 77%;
+    display: flex;
+}
+
+.livro .pag {
+    border-radius: 5px;
+    width: 50%;
+    height: 100%;
+    border-bottom: 1px black solid;
+    border-top: 1px black solid;
+    background-color: aliceblue;
+}
+
+.pag {
+    text-align: center;
+    align-items: center;
+}
+
+#pagLogin {
+    border-top-right-radius: 10PX;
+    border-bottom-right-radius: 10px;
+    border-left: 7px black double;
+    border-right: 1px black inset;
+    text-align: center;
+    align-items: center;
+}
+
+#pagCadastro {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right: 7px black double;
+
+}
+
+#input_User {
+    border: 0 none;
+    outline: 0;
+    border-bottom: 1px;
+    border-color: black;
+    background-color: transparent;
+    border-style: inset;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
