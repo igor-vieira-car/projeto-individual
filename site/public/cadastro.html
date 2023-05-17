@@ -25,16 +25,16 @@
         <div class="livro">
             <div class="pag" id="pagLogin">
                 <img src="assets/icon/logo proheto idividuas.png" width="100%" alt="">
-                <a href=""> já tem conta?</a>
+                <a href="login.html"> já tem conta?</a>
             </div>
             <div class="pag" id="pagCadastro">
                 <div id="email">
-                    Email
+                    Nome
                     <br>
                     <input id="nome_input" type="text" placeholder="Seu nome">
                 </div>
                 <div id="nome">
-                    Nome
+                    Email
                     <br>
                     <input id="email_input" type="text" placeholder="meuemail@provedor.com">
                 </div>
@@ -72,7 +72,7 @@
         if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-
+             
             return false;
         }
         else {
@@ -94,7 +94,7 @@
         }).then(function (resposta) {
 
             console.log("resposta: ", resposta);
-
+            validarSessao();
             if (resposta.ok) {
                 cardErro.style.display = "block";
 

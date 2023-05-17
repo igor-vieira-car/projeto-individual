@@ -160,7 +160,7 @@
                           
 
   // }
-  
+  var vetorImg = ["https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg"]
   for (var i = 0; i < 2; i++) {
     // var armazena ='armazena'+i
     estante.innerHTML += `<ul id="armazena" class="prateleira style="margin-top: 0%; background-color: black;">`
@@ -169,13 +169,13 @@
        armazena.innerHTML +=`<li>
                                 <a id="container">
                                   <img style="width:100%"
-                                    src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
+                                    src="${vetorImg[i]}" alt="">
                                 </a>
                               </li>`
                             }
     estante.innerHTML += `</ul>`
   }
-  
+
 /*------------------------------CAROUSEL----------------------------------------------------*/
   var num = 2;
   imagemCarousel.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`
@@ -202,7 +202,7 @@
 
   setInterval(function () {
     passar();
-  }, 2500);
+  }, 0501);
 
 
 

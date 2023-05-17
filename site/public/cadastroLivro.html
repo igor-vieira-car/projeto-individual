@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    Link da imagem do mangá:<input id="linkManga_input" type="text" placeholder="Link imagem"> <br>
+
+    Nome do mangá:<input id="nomeLivro_input" type="text" placeholder="Nome Manga"> <br>
+    Descrição do mangá:<input id="descriManga_input" type="text" placeholder="Descriçao manga"> <br>
+    Gênero do Mangá:<input id="generoManga_input" type="text" placeholder="'Romanca'"> <br>
+    Quantidade de páginas:<input id="qtdPáginas_input" type="text" placeholder="Quantidade de páginas"> <br>      
+    idioma:<input id="idioma_input" type="text" placeholder="idioma do manga"> <br>      
+    Editora:<input id="editora_input" type="text" placeholder="Nome da Editora"> <br>      
+    Autor:<input id="autor_input" type="text" placeholder="Nome do autor"> <br>               
+    <button class="botao" onclick="cadastrarLivro()">Cadastrar</button>
+
+</body>
+</html>
+
+<script>
+    function cadastrarLivro() {
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo        
+        var linkMangaVar = linkManga_input.value;
+        var nomeLivroVar = nomeLivro_input.value;
+        var descriMangaVar = descriManga_input.value;
+        var generoMangaVar = generoManga_input.value;
+        var qtdPáginasVar = qtdPáginas_input.value;
+        var idiomaVar = idioma_input.value;
+        var editoraVar = editora_input.value;
+        var autorVar = autor_input.value;
+
+        if (nomeLivroVar == "" ) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+             
+            return false;
+        }
+        else {
+        }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrarLivro", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                linkMangaServer:   linkMangaVar,
+                nomeLivroServer:   nomeLivroVar,
+                descriMangaServer: descriMangaVar,
+                generoMangaServer: generoMangaVar,
+                qtdPáginasServer:  qtdPáginasVar,
+                idiomaServer:   idiomaVar,
+                editoraServer:     editoraVar,
+                autorServer:    autorVar,
+            
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                cardErro.style.display = "block";
+
+                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                setTimeout(() => {
+                    window.location = "login.html";
+                }, "2000")
+
+             
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+
+        });
+
+        return false;
+    }
+
+
+
+</script>
