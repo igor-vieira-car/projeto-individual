@@ -20,6 +20,27 @@ function listar() {
     return database.executar(instrucao);
 }
 
+
+function listarLivro() {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucao = `
+    SELECT idManga, 
+        linkImagem, 
+        nomeManga, 
+        descriManga, 
+        genero, 
+        qtdPaginas, 
+        idioma, 
+        editora, 
+        autor 
+            FROM manga;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
+
 function pesquisarDescricao(texto) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarDescricao()");
     var instrucao = `
@@ -91,6 +112,7 @@ function deletar(idAviso) {
 
 module.exports = {
     listar,
+    listarLivro,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,

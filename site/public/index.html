@@ -161,7 +161,9 @@
 
   // }
   var vetorImg = ["https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg"]
-  for (var i = 0; i < 2; i++) {
+
+  
+  for (var i = 0; i < 1; i++) {
     // var armazena ='armazena'+i
     estante.innerHTML += `<ul id="armazena" class="prateleira style="margin-top: 0%; background-color: black;">`
 
@@ -191,18 +193,19 @@
     imgCarousel: function () {
       if (num == 1) {
         imagemCarousel.innerHTML = `<img src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2021/05/manga.jpg" alt="">`
+
       } if (num == 2) {
         imagemCarousel.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`
+
       } if (num == 3) {
-        imagemCarousel.innerHTML = `<img src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2021/05/manga.jpg" alt="">`
+        imagemCarousel.innerHTML = `<img src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2021/05/manga.jpg" alt="">` 
       }
     },
   }
 
-
   setInterval(function () {
     passar();
-  }, 0501);
+  }, 3001);
 
 
 

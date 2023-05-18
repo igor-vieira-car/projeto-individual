@@ -1,0 +1,41 @@
+body{
+    margin: 0%;
+    padding: 0%;
+}
+
+
+nav{
+    width: 15vw;
+    height: 100vh;
+    background-color: black;
+
+    position: absolute;
+}
+.listNav{
+    background-color: blanchedalmond;
+    list-style: none;
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    text-align: center;
+}
+.listNav li{    
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20%;
+    background-color:brown;
+    border-radius: 25px;
+}
+.listNav li a{
+    transition: all 1s;
+    text-decoration: none;
+    color: #ffffff;
+}
+.listNav li a:hover{
+    background-color: aquamarine;
+    transition: all 1s;  
+    color: #000000;
+
+}

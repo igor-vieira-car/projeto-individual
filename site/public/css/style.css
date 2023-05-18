@@ -115,13 +115,13 @@ nav {
 
 
 #estante ul li {
-    transition: all 0.1s;
+    transition: all 0.3ss;
     opacity: 1;
 }   
 
 #estante ul li:hover {
     transform: scale(1.2);
-    transition: all 0.5s;
+    transition: all 0.7s;
     opacity: 1;
 }   
 
