@@ -28,7 +28,7 @@
     </nav>
     <div style="margin-left: 15%; width: 85%; height: 100vh; background-color: cadetblue;">
         <button onclick="atualizarLivro()">teste</button>
-        <!-- <div id="spanID"></div>
+        <div id="spanID"></div>
         <div id="spanTitulo"></div>
         <div id="spanDescricao"></div>
         <div id="spanGenero"></div>
@@ -37,9 +37,8 @@
         <div id="spanidioma"></div>
         <div id="spaneditora"></div>
         <div id="spanautor"></div>
-
         <div id="bntEditar"></div>
-        <div id="bntDeletar"></div> -->
+        <div id="bntDeletar"></div>
 
     </div>
 </body>
@@ -71,51 +70,50 @@
                         var publicacao = resposta[i];
 
                         // // criando e manipulando elementos do HTML via JavaScript
-                        var divPublicacao = document.createElement("div");
-                        var spanID = document.createElement("span");
-                        var spanTitulo = document.createElement("span");
-                        var spanNome = document.createElement("span");
-                        var divDescricao = document.createElement("div");
-                        var divButtons = document.createElement("div");
-                        var btnEditar = document.createElement("button");
-                        var btnDeletar = document.createElement("button");
+                        // var divPublicacao = document.createElement("div");
+                        // var spanID = document.createElement("span");
+                        // var spanTitulo = document.createElement("span");
+                        // var spanNome = document.createElement("span");
+                        // var divDescricao = document.createElement("div");
+                        // var divButtons = document.createElement("div");
+                        // var btnEditar = document.createElement("button");
+                        // var btnDeletar = document.createElement("button");
 
-                        spanID.innerHTML = "ID: <b>" + publicacao.idManga + "</b>";
-                        spanTitulo.innerHTML = "Título: <b>" + publicacao.linkImagem + "</b>";
-                        spanNome.innerHTML = "Autor: <b>" + publicacao.nomeManga + "</b>";
-                        // spanDescricao.innerHTML = "Descrição: <b>" + publicacao.descriManga + "</b>";
-                        // spanGenero.innerHTML = "Genero: <b>" + publicacao.genero + "</b>";
-                        // spanQtdPaginas.innerHTML = "Quantidade de páginas: <b>" + publicacao.qtdPaginas + "</b>";
-                        // spanidioma.innerHTML = "idioma: <b>" + publicacao.idioma + "</b>";
-                        // spaneditora.innerHTML = "editora: <b>" + publicacao.editora + "</b>";
-                        // spanautor.innerHTML = "autor: <b>" + publicacao.autor + "</b>";
-                        // btnEditar.innerHTML = "Editar";
-                        // btnDeletar.innerHTML = "Deletar";
+                        spanID.innerHTML += "ID: <b>" + publicacao.idManga + "</b>";
+                        spanTitulo.innerHTML += "Título: <b>" + publicacao.linkImagem + "</b>";
+                        spanNome.innerHTML += "Autor: <b>" + publicacao.nomeManga + "</b>";
+                        spanDescricao.innerHTML += "Descrição: <b>" + publicacao.descriManga + "</b>";
+                        spanGenero.innerHTML += "Genero: <b>" + publicacao.genero + "</b>";
+                        spanQtdPaginas.innerHTML += "Quantidade de páginas: <b>" + publicacao.qtdPaginas + "</b>";
+                        spanidioma.innerHTML += "idioma: <b>" + publicacao.idioma + "</b>";
+                        spaneditora.innerHTML += "editora: <b>" + publicacao.editora + "</b>";
+                        spanautor.innerHTML += "autor: <b>" + publicacao.autor + "</b>";
 
-                        divPublicacao.className = "publicacao";
-                        spanTitulo.id = "inputNumero" + publicacao.idManga;
-                        spanNome.className = "publicacao-nome";
-                        spanTitulo.className = "publicacao-titulo";
-                        divDescricao.className = "publicacao-descricao";
 
-                        divButtons.className = "div-buttons"
+                        // divPublicacao.className = "publicacao";
+                        // spanTitulo.id = "inputNumero" + publicacao.idManga;
+                        // spanNome.className = "publicacao-nome";
+                        // spanTitulo.className = "publicacao-titulo";
+                        // divDescricao.className = "publicacao-descricao";
 
-                        btnEditar.className = "publicacao-btn-editar"
-                        btnEditar.id = "btnEditar" + publicacao.idAviso;
-                        btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
+                        // divButtons.className = "div-buttons"
 
-                        btnDeletar.className = "publicacao-btn-editar"
-                        btnDeletar.id = "btnDeletar" + publicacao.idAviso;
-                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
+                        // btnEditar.className = "publicacao-btn-editar"
+                        // btnEditar.id = "btnEditar" + publicacao.idAviso;
+                        // btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
 
-                        divPublicacao.appendChild(spanID);
-                        divPublicacao.appendChild(spanNome);
-                        divPublicacao.appendChild(spanTitulo);
-                        divPublicacao.appendChild(divDescricao);
-                        divPublicacao.appendChild(divButtons);
-                        divButtons.appendChild(btnEditar);
-                        divButtons.appendChild(btnDeletar);
-                        feed.appendChild(divPublicacao);
+                        // btnDeletar.className = "publicacao-btn-editar"
+                        // btnDeletar.id = "btnDeletar" + publicacao.idAviso;
+                        // btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
+
+                        // divPublicacao.appendChild(spanID);
+                        // divPublicacao.appendChild(spanNome);
+                        // divPublicacao.appendChild(spanTitulo);
+                        // divPublicacao.appendChild(divDescricao);
+                        // divPublicacao.appendChild(divButtons);
+                        // divButtons.appendChild(btnEditar);
+                        // divButtons.appendChild(btnDeletar);
+                        // feed.appendChild(divPublicacao);
                     }
 
                 });

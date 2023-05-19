@@ -115,7 +115,7 @@ nav {
 
 
 #estante ul li {
-    transition: all 0.3ss;
+    transition: all 0.3s;
     opacity: 1;
 }   
 

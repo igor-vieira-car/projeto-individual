@@ -54,7 +54,8 @@
     </div>
 
     <div id="estante">
-        <!-- <ul id="armazena" class="prateleira"> 
+      
+      <!-- <ul id="armazena" class="prateleira"> 
           <li>
             <a id="container">
               <img style="width:100%"
@@ -110,7 +111,7 @@
             </a>
           </li>
         </ul> -->
-      </div>
+    </div>
   </div>
 
 
@@ -145,40 +146,93 @@
 
 
   // for (var i = 0; i < 10; i++) {
-  
-  //   if (i % 5 == 0) {
-  //     estante.innerHTML += `</ul>`
 
-  //     estante.innerHTML += `<ul id="armazena" class="prateleira">`
-  //   }
-  //   armazena.innerHTML += `<li>
-  //                             <a id="container">
-  //                               <img style="width:100%"
-  //                                 src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-  //                             </a>
-  //                           </li>` 
-                          
+  // if (i % 5 == 0) {
+  //   estante.innerHTML += `</ul>`
+
+  //   estante.innerHTML += `<ul id="armazena" class="prateleira">`
+  // }
+  // armazena.innerHTML += `<li>
+  //                           <a id="container">
+  //                             <img style="width:100%"
+  //                               src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
+  //                           </a>
+  //                         </li>` 
+
 
   // }
-  var vetorImg = ["https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg"]
+  // var vetorImg = ["https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg"]
 
-  
-  for (var i = 0; i < 1; i++) {
-    // var armazena ='armazena'+i
-    estante.innerHTML += `<ul id="armazena" class="prateleira style="margin-top: 0%; background-color: black;">`
 
-    for (var j = 0; j < 5; j++) {
-       armazena.innerHTML +=`<li>
-                                <a id="container">
-                                  <img style="width:100%"
-                                    src="${vetorImg[i]}" alt="">
-                                </a>
-                              </li>`
-                            }
-    estante.innerHTML += `</ul>`
-  }
+  // for (var i = 0; i < 1; i++) {
+  //   // var armazena ='armazena'+i
+  //   estante.innerHTML += `<ul id="armazena" class="prateleira style="margin-top: 0%; background-color: black;">`
 
-/*------------------------------CAROUSEL----------------------------------------------------*/
+  //   for (var j = 0; j < 5; j++) {
+  //      armazena.innerHTML +=`<li>
+  //                               <a id="container">
+  //                                 <img style="width:100%"
+  //                                   src="${vetorImg[i]}" alt="">
+  //                               </a>
+  //                             </li>`
+  //                           }
+  //   estante.innerHTML += `</ul>`
+  // }
+  fetch("/avisos/listarLivro").then(function (resposta) {
+    if (resposta.ok) {
+      if (resposta.status == 204) {
+        var feed = document.getElementById("feed_container");
+        var mensagem = document.createElement("span");
+        mensagem.innerHTML = "Nenhum resultado encontrado."
+        feed.appendChild(mensagem);
+        throw "Nenhum resultado encontrado!!";
+      }
+
+      resposta.json().then(function (resposta) {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+        console.log(resposta);
+        var feed = document.getElementById("feed_container");
+
+        for (let i = 0; i < resposta.length; i++) {
+          var publicacao = resposta[i];
+
+
+          if (i % 5 == 0) {
+            estante.innerHTML += `</ul>`
+
+            estante.innerHTML += `<ul id="armazena" class="prateleira">`
+          }
+          armazena.innerHTML += `<li>
+                              <a id="container">
+                                <img style="width:100%"
+                                  src="${publicacao.linkImagem}" alt="">
+                              </a>
+                            </li>`
+
+
+
+
+          // spanID.innerHTML += "ID: <b>" + publicacao.idManga + "</b>";
+          // spanTitulo.innerHTML += "Título: <b>" + publicacao.linkImagem + "</b>";
+          // spanNome.innerHTML += "Autor: <b>" + publicacao.nomeManga + "</b>";
+          // spanDescricao.innerHTML += "Descrição: <b>" + publicacao.descriManga + "</b>";
+          // spanGenero.innerHTML += "Genero: <b>" + publicacao.genero + "</b>";
+          // spanQtdPaginas.innerHTML += "Quantidade de páginas: <b>" + publicacao.qtdPaginas + "</b>";
+          // spanidioma.innerHTML += "idioma: <b>" + publicacao.idioma + "</b>";
+          // spaneditora.innerHTML += "editora: <b>" + publicacao.editora + "</b>";
+          // spanautor.innerHTML += "autor: <b>" + publicacao.autor + "</b>";
+
+        }
+
+      });
+    } else {
+      throw ('Houve um erro na API!');
+    }
+  }).catch(function (resposta) {
+    console.error(resposta);
+  });
+
+  /*------------------------------CAROUSEL----------------------------------------------------*/
   var num = 2;
   imagemCarousel.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`
 
@@ -198,7 +252,7 @@
         imagemCarousel.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`
 
       } if (num == 3) {
-        imagemCarousel.innerHTML = `<img src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2021/05/manga.jpg" alt="">` 
+        imagemCarousel.innerHTML = `<img src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2021/05/manga.jpg" alt="">`
       }
     },
   }
@@ -221,5 +275,5 @@
     carousel.imgCarousel();
   }
   /*------------------------------FIM CAROUSEL----------------------------------------------------*/
-  
+
 </script>
