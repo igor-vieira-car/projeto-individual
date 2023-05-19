@@ -102,24 +102,33 @@ nav {
 }
 
 #estante {
+    flex-wrap: wrap;
     display: flex;
-    flex-direction: column;
     width: 100%;
 }
 
-#estante ul li a {
-    width: 100%;
-    height: 100%;
+#estante a {
+    width: 20%;
     display: block;
 }
+#estante a img {
+    width: 100%;
+}
 
+@keyframes loading {
+	0% {
+		transform: rotate(0);
+	}
+    100% {
+		transform: rotate(360deg);
+	}
+		
+}
 
-#estante ul li {
-    transition: all 0.3s;
-    opacity: 1;
-}   
-
-#estante ul li:hover {
+#estante a img:hover {
+	animation: loading 1s;
+    animation-iteration-count: 2;
+    border: 1px solid white;
     transform: scale(1.2);
     transition: all 0.7s;
     opacity: 1;
@@ -133,6 +142,7 @@ nav {
     display: block;
     width: 100%;
     height: 100%; 
+
 }
 
 

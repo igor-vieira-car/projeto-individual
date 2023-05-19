@@ -54,63 +54,7 @@
     </div>
 
     <div id="estante">
-      
-      <!-- <ul id="armazena" class="prateleira"> 
-          <li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li><li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li><li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li><li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li><li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li>
-        </ul>
-        <ul id="armazena" class="prateleira"> 
-          <li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li><li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li><li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li><li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li><li>
-            <a id="container">
-              <img style="width:100%"
-                src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" alt="">
-            </a>
-          </li>
-        </ul> -->
+
     </div>
   </div>
 
@@ -193,35 +137,15 @@
         console.log(resposta);
         var feed = document.getElementById("feed_container");
 
-        for (let i = 0; i < resposta.length; i++) {
+        for (var i = 0; i < resposta.length; i++) {
           var publicacao = resposta[i];
 
-
-          if (i % 5 == 0) {
-            estante.innerHTML += `</ul>`
-
-            estante.innerHTML += `<ul id="armazena" class="prateleira">`
-          }
-          armazena.innerHTML += `<li>
-                              <a id="container">
-                                <img style="width:100%"
-                                  src="${publicacao.linkImagem}" alt="">
-                              </a>
-                            </li>`
-
-
-
-
-          // spanID.innerHTML += "ID: <b>" + publicacao.idManga + "</b>";
-          // spanTitulo.innerHTML += "Título: <b>" + publicacao.linkImagem + "</b>";
-          // spanNome.innerHTML += "Autor: <b>" + publicacao.nomeManga + "</b>";
-          // spanDescricao.innerHTML += "Descrição: <b>" + publicacao.descriManga + "</b>";
-          // spanGenero.innerHTML += "Genero: <b>" + publicacao.genero + "</b>";
-          // spanQtdPaginas.innerHTML += "Quantidade de páginas: <b>" + publicacao.qtdPaginas + "</b>";
-          // spanidioma.innerHTML += "idioma: <b>" + publicacao.idioma + "</b>";
-          // spaneditora.innerHTML += "editora: <b>" + publicacao.editora + "</b>";
-          // spanautor.innerHTML += "autor: <b>" + publicacao.autor + "</b>";
-
+          estante.innerHTML += `
+            <a id="container">
+              <img
+                src="${publicacao.linkImagem}" alt="">
+            </a>
+          `
         }
 
       });
