@@ -58,7 +58,7 @@
 
 
   <div style="width: 100%; justify-content: right; display: flex;"> <input type="text" id="pesquisar_input"> <button
-      onclick="PesquisarLivro()">Pesquisar</button></div>
+      onclick="pesquisar()">Pesquisar</button></div>
   <div id="biblioteca">
 
     <div id="genero">
@@ -112,76 +112,63 @@
     i++
     novo.innerHTML += novoss[0];
   }
-  // fetch("/avisos/listarLivro").then(function (resposta) {
-  //   if (resposta.ok) {
-  //     if (resposta.status == 204) {
-  //     }
 
-  //     resposta.json().then(function (resposta) {
-  //       console.log("Dados recebidos: ", JSON.stringify(resposta));
-  //       console.log(resposta);
-  //       var feed = document.getElementById("feed_container");
+  fetch("/avisos/listarLivro").then(function (resposta) {
+    if (resposta.ok) {
+      if (resposta.status == 204) {
+      }
 
-  //       for (var i = 0; i < resposta.length; i++) {
-  //         var publicacao = resposta[i];
+      resposta.json().then(function (resposta) {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+        console.log(resposta);
+        var feed = document.getElementById("feed_container");
 
-  //         estante.innerHTML += `
-  //           <a id="container">
-  //             <img
-  //               src="${publicacao.linkImagem}" alt="">
-  //           </a>
-  //         `
-  //       }
+        for (var i = 0; i < resposta.length; i++) {
+          var publicacao = resposta[i];
 
-  //     });
-  //   } else {
-  //     throw ('Houve um erro na API!');
-  //   }
-  // }).catch(function (resposta) {
-  //   console.error(resposta);
-  // });
-
-  /*------------------------------Pesqui9sa----------------------------------------------------*/
-  function PesquisarLivro() {
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var pesquisarVar = pesquisar_input.value;
-
-    if (pesquisarVar == "") {
-      cardErro.style.display = "block"
-      mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-
-      return false;
-    }
-
-    // Enviando o valor da nova input
-    fetch("/avisos/PesquisarLivro", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        pesquisarSever: pesquisarVar,
-      })
-    }).then(function (resposta) {
-      if (resposta.ok) {
-        if (resposta.status == 204) {
-        }
-        resposta.json().then(function (resposta) {
-
-          console.log("Dados recebidos: ", JSON.stringify(resposta));
-          console.log(resposta);
-          var feed = document.getElementById("feed_container");
-
-          for (var i = 0; i < resposta.length; i++) {
-            var publicacao = resposta[i];
-
-            estante.innerHTML += `
+          estante.innerHTML += `
             <a id="container">
               <img
                 src="${publicacao.linkImagem}" alt="">
             </a>
           `
+        }
+
+      });
+    } else {
+      throw ('Houve um erro na API!');
+    }
+  }).catch(function (resposta) {
+    console.error(resposta);
+  });
+
+  /*------------------------------Pesqui9sa----------------------------------------------------*/
+  
+  function pesquisar() {
+    var pesquisarVar = pesquisar_input.value;
+    fetch(`/avisos/pesquisar/${pesquisarVar}`).then(function (resposta) {
+      if (resposta.ok) {
+        
+        if (resposta.status == 204) {
+          alert("Nenhum resultado encontrado.");
+
+        }
+
+        resposta.json().then(function (resposta) {
+          console.log("Dados recebidos: ", JSON.stringify(resposta));
+          console.log(resposta);
+          var feed = document.getElementById("feed_container");
+
+          estante.innerHTML = ``
+          for (var i = 0; i < resposta.length; i++) {
+            var pesquisa = resposta[i];
+
+            estante.innerHTML += `
+            <a id="container">
+              <img
+                src="${pesquisa.linkImagem}" alt="">
+            </a>
+          `;
           }
 
         });
@@ -190,11 +177,8 @@
       }
     }).catch(function (resposta) {
       console.error(resposta);
-    })
-  };
-
-
-
+    });
+  }
 
 
 

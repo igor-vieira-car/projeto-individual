@@ -13,8 +13,8 @@ router.get("/listar", function (req, res) {
 router.get("/listarLivro", function (req, res) {    
     avisoController.listarLivro(req, res);
 });
-router.get("/PesquisarLivro", function (req, res) {
-    avisoController.PesquisarLivro(req, res);
+router.get("/pesquisar/:pesquisarVar", function (req, res) {
+    avisoController.pesquisar(req, res);
 });
 router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listarPorUsuario(req, res);

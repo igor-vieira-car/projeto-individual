@@ -34,9 +34,9 @@ function listarLivro(req, res) {
     });
 }
 
-function PesquisarLivro(req, res) {
-    var pesquisar = req.params.pesquisarServer;
-    avisoModel.PesquisarLivro(pesquisar).then(function (resultado) {
+function pesquisar(req, res) {
+    var pesquisar = req.params.pesquisarVar;
+    avisoModel.pesquisar(pesquisar).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -165,7 +165,7 @@ module.exports = {
     testar,
     listar,
     listarPorUsuario,
-    PesquisarLivro,
+    pesquisar,
     pesquisarDescricao,
     listarLivro,
     publicar,
