@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap');
+
+
 * {
     padding: 0;
     margin: 0;
@@ -6,6 +9,8 @@
 body {
     padding: 0;
     margin: 0;
+    background-color: #E0E1DD;
+    font-family: Roboto Mono;
 }
 
 /*                          INICIO DA NAV                                   */
@@ -13,15 +18,20 @@ nav {
     border-bottom: 1px solid;
     display: flex;
     align-items: center;
-    height: 10vh;
+    height: 15vh;
     justify-content: space-around;
-    background-color: #003399;
+    background-color: #1B263B
+}
+#logo{
+}
+#imgLogo{
+    width: 130px;
 }
 
 #listHome {
     display: flex;
     justify-content: space-around;
-    width: 50%;
+    width: 70%;
 
 }
 
@@ -33,7 +43,8 @@ nav {
 #listHome li a {
     list-style: none;
     text-decoration: none;
-    color: #FFD700;
+    color: #E0E1DD;
+    font-size: 25px;
     
 }
 
@@ -51,8 +62,9 @@ nav {
 
 #signup a {
     text-decoration: none;
-    background-color: #990000;
+    background-color: #0D1B2A;
     width: 100%;
+    height: 30px;
     border-radius: 25px;
     text-align: center;
     margin-left: 2%;
@@ -72,14 +84,24 @@ nav {
 #imagemCarousel {
     width: 100%;
     height: 100%;
-    background-color: aqua;
 }
 
 #imagemCarousel img {
     width: 100%;
     height: 100%;
 }
-
+#text_novos{
+    width: 100%; 
+    text-align: center;
+    margin-top: 5%;
+}
+#novo{
+    width: 100%;
+    height: 100%;
+    background-color: #778DA9; 
+    display: flex; 
+    justify-content: space-evenly;
+}
 /*                       FIM DA CAROUSEL                                  */
 
 /*                       Inicio Mangas novos                                      */ 
@@ -88,7 +110,7 @@ nav {
     width: 100%; 
     height: 50vh;
     background-color: #003399;
-    margin-top: 4%; 
+    
     display: flex; 
 }
 
@@ -111,11 +133,14 @@ nav {
 
 #genero ul li {
     text-decoration: none;
-    margin-top: 5%;
+    
+    margin-top: 10%;
+    
 }
 
 #genero ul li a {
-    color: black;
+    color: #0D1B2A;
+    font-weight: 600;
     text-decoration: none;
     margin-top: 5%;
 }
@@ -131,21 +156,18 @@ nav {
     height: 35vh;
     margin-left: 2.5%;
     margin-right: 2.5%;
-    width: 15%; 
-    display: block;    
-    margin-top: 5vh;
+    width: 15%;  
+    position: relative;
 
 }
-#estante a img {
+#estante a #imgLivro {
     width: 100%;    
-    height: 100%;
+    height: 100%;   
     transition: all 0.4s;
-
-    border: 1px solid black;
 }
 
 
-#estante a img:hover {
+#estante a #imgLivro:hover {
     border: 1px solid white;
     transform: scale(1.2);
     transition: all 0.7s;

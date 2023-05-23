@@ -6,21 +6,27 @@
   <link rel="stylesheet" href="css/style.css">
   <title>Projeto idividuas</title>
 </head>
+<!-- Palheta de cores 
+#0D1B2A
+#1B263B
+#415A77
+#778DA9
+#E0E1DD -->
 
 <body>
   <nav>
-    <div>
-      logo
+    <div id="logo">
+      <img src="assets/icon/logo proheto idividuas.png" id="imgLogo" alt="">
     </div>
     <ul id="listHome">
       <li></li>
-      <li><a href="#">home</a> </li>
+      <li><a href="#">Home</a> </li>
 
       <li><a href="#">Livros</a></li>
 
       <li><a href="#">Pedir ajuda</a></li>
 
-      <li><a href="#">contatos</a></li>
+      <li><a href="#">Contatos</a></li>
     </ul>
 
     <div id="signup">
@@ -41,18 +47,17 @@
     <button id="passar" onclick="passar()">""</button>
   </div>
 
-  <div id="text_novos" style="width: 100%; text-align: center; margin-top: 5%;">
+  <div id="text_novos">
     <h1>
-    Mangás lançados recentemente</h1>
+      Mangás lançados recentemente</h1>
   </div>
   <DIV id="div_novos">
 
-    <button>""</button>
 
-    <div id="novo" style=" width: 100%;height: 100%; background-color: aqua; display: flex; justify-content: space-evenly;">
+  
+    <div id="novo">
     </div>
 
-    <button>""</button>
   </DIV>
 
 
@@ -68,9 +73,13 @@
         <li><a href="#">Ação</a></li>
         <li><a href="#">Comédia</a></li>
         <li><a href="#">Terror</a></li>
+        <li><a href="#">Mistério</a></li>
+        <li><a href="#">Aventura</a></li>
+        <li><a href="#">Ficção ciientífica</a></li>
+        <li><a href="#">Fantasia</a></li>
+        <li><a href="#">História</a></li>
       </ul>
     </div>
-
     <div id="estante">
     </div>
   </div>
@@ -79,16 +88,16 @@
 
   <footer>
     <div>
-      Sobre nos
+      Eu sou ele
       <br style="margin-top: 0%; background-color: black;">
-      Sobre nos
+      ele é eu
       <br>
-      Sobre nos
-      <br>
-      Sobre nos
     </div>
     <div>
-      Enderecos
+      Rua Haddock Lobo,  
+      595 - Cerqueira 
+      <br>
+      César, São Paulo - SP, 01414-001
     </div>
 
     <div>
@@ -96,22 +105,51 @@
     </div>
 
     <div>
-      contatos
+      (11) 97409-3996
+      <br>atendimento@sptech.school
+       <br>FAQ - SPTech
     </div>
   </footer>
 </body>
-
 </html>
-
 <script>
 
 
-  var novoss = [`<img src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" id="itemNovos" alt="">`];
-  var i = 0;
-  while (i < 4) {
-    i++
-    novo.innerHTML += novoss[0];
-  }
+  // var novoss = [`<img src="https://m.media-amazon.com/images/I/5191HKIfUPL._SY344_BO1,204,203,200_QL70_ML2_.jpg" id="itemNovos" alt="">`];
+  // var i = 0;
+  // while (i < 4) {
+  //   i++
+  //   novo.innerHTML += novoss[0];
+  // }
+
+  fetch("/avisos/maisRecentes").then(function (recentesResposta) {
+    if (recentesResposta.ok) {
+      if (recentesResposta.status == 204) {
+      }
+
+      recentesResposta.json().then(function (recentesResposta) {
+        console.log("Dados recebidos: ", JSON.stringify(recentesResposta));
+        console.log(recentesResposta);
+        var feed = document.getElementById("feed_container");
+
+        for (var i = 0; i < 4; i++) {
+          var recentes = recentesResposta[i];
+          console.log(recentes);
+          novo.innerHTML += `
+          <img src="${recentes.linkImagem}" id="itemNovos" alt="">
+          `
+        }
+
+      });
+    } else {
+      throw ('Houve um erro na API!');
+    }
+  }).catch(function (resposta) {
+    console.error(resposta);
+  });
+
+
+
 
   fetch("/avisos/listarLivro").then(function (resposta) {
     if (resposta.ok) {
@@ -127,11 +165,11 @@
           var publicacao = resposta[i];
 
           estante.innerHTML += `
-            <a id="container">
-              <img
-                src="${publicacao.linkImagem}" alt="">
+            <a id="container" href="cadastro.html"> 
+              <img src="${publicacao.linkImagem}" id="imgLivro"  alt="">
             </a>
-          `
+            
+          ` 
         }
 
       });
@@ -143,12 +181,12 @@
   });
 
   /*------------------------------Pesqui9sa----------------------------------------------------*/
-  
+
   function pesquisar() {
     var pesquisarVar = pesquisar_input.value;
     fetch(`/avisos/pesquisar/${pesquisarVar}`).then(function (resposta) {
       if (resposta.ok) {
-        
+
         if (resposta.status == 204) {
           alert("Nenhum resultado encontrado.");
 
@@ -164,10 +202,10 @@
             var pesquisa = resposta[i];
 
             estante.innerHTML += `
-            <a id="container">
-              <img
-                src="${pesquisa.linkImagem}" alt="">
+            <a id="container" href="cadastro.html"> 
+              <img src="${pesquisa.linkImagem}" id="imgLivro"  alt="">
             </a>
+            
           `;
           }
 
