@@ -15,6 +15,7 @@ nav {
     align-items: center;
     height: 10vh;
     justify-content: space-around;
+    background-color: #003399;
 }
 
 #listHome {
@@ -32,7 +33,7 @@ nav {
 #listHome li a {
     list-style: none;
     text-decoration: none;
-    color: #a9a9a9;
+    color: #FFD700;
     
 }
 
@@ -40,19 +41,22 @@ nav {
     transition: all 0.5s;
     border-bottom: 1px solid;
     border-radius: 10px;
-    color: #000000;
+    color: #FFFFFF;
 }
 
 #signup {
-    background-color: aqua;
     display: flex;
     width: 20%;
-    justify-content: space-around;
 }
 
 #signup a {
     text-decoration: none;
-    color: black;
+    background-color: #990000;
+    width: 100%;
+    border-radius: 25px;
+    text-align: center;
+    margin-left: 2%;
+    color: #FFD700;
 }
 
 /*                       FIM DA NAV                                         */
@@ -77,6 +81,21 @@ nav {
 }
 
 /*                       FIM DA CAROUSEL                                  */
+
+/*                       Inicio Mangas novos                                      */ 
+
+#div_novos{
+    width: 100%; 
+    height: 50vh;
+    background-color: #003399;
+    margin-top: 4%; 
+    display: flex; 
+}
+
+/*                         Fim Mangas novos                                      */ 
+
+
+
 /*                       MANGAS                                  */
 #biblioteca {
     width: 100%;
@@ -105,63 +124,37 @@ nav {
     flex-wrap: wrap;
     display: flex;
     width: 100%;
+    justify-content: space-between;
 }
 
 #estante a {
-    width: 20%;
-    display: block;
+    height: 35vh;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    width: 15%; 
+    display: block;    
+    margin-top: 5vh;
+
 }
 #estante a img {
-    width: 100%;
+    width: 100%;    
+    height: 100%;
+    transition: all 0.4s;
+
+    border: 1px solid black;
 }
 
-@keyframes loading {
-	0% {
-		transform: rotate(0);
-	}
-    100% {
-		transform: rotate(360deg);
-	}
-		
-}
 
 #estante a img:hover {
-	animation: loading 1s;
-    animation-iteration-count: 2;
     border: 1px solid white;
     transform: scale(1.2);
     transition: all 0.7s;
     opacity: 1;
 }   
 
-#container {
-    position: relative;
-    width: 50%;
-}
-#estante ul li a img {
-    display: block;
-    width: 100%;
-    height: 100%; 
-
-}
 
 
 
-
-.prateleira {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 3%;
-    list-style: none;
-}
-
-.prateleira li {
-
-    height: 225px;
-    border: 1px solid;
-    text-align: center;
-    width: 185px;
-}
 
 /*                      fim  MANGAS                                  */
 

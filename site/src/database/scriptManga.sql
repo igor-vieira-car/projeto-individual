@@ -20,7 +20,7 @@ CREATE TABLE manga(
     autor VARCHAR (50)
 );
 select * from usuario;	
-select * from manga;
+select * from manga;	
 SELECT idManga from manga;
 DESC usuario;
 DESC manga;
