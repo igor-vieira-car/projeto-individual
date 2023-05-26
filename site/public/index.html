@@ -62,7 +62,7 @@
 
 
 
-  <div style="width: 100%; justify-content: right; display: flex;"> <input type="text" id="pesquisar_input"> <button
+  <div id="div_pesquisa"> <input type="text" id="pesquisar_input"> <button
       onclick="pesquisar()">Pesquisar</button></div>
   <div id="biblioteca">
 
@@ -165,7 +165,7 @@
           var publicacao = resposta[i];
 
           estante.innerHTML += `
-            <a id="container" href="cadastro.html"> 
+            <a id="container" href="pagManga.html"> 
               <img src="${publicacao.linkImagem}" id="imgLivro"  alt="">
             </a>
             
