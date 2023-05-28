@@ -17,6 +17,11 @@ router.get("/listarLivro", function (req, res) {
 router.get("/maisRecentes", function (req, res) {    
     avisoController.maisRecentes(req, res);
 });
+
+router.get("/pagManga/:idManga", function (req, res) {    
+    avisoController.pagManga(req, res);
+});
+
 router.get("/pesquisar/:pesquisarVar", function (req, res) {
     avisoController.pesquisar(req, res);
 });
@@ -32,12 +37,5 @@ router.post("/publicar/:idUsuario", function (req, res) {
     avisoController.publicar(req, res);
 });
 
-router.put("/editar/:idAviso", function (req, res) {
-    avisoController.editar(req, res);
-});
-
-router.delete("/deletar/:idAviso", function (req, res) {
-    avisoController.deletar(req, res);
-});
 
 module.exports = router;

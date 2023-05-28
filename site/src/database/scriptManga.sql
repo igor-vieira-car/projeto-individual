@@ -5,14 +5,26 @@ CREATE TABLE usuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nomeUsuario VARCHAR(45),
     emailUsuario VARCHAR(45),
-    senhaUsuario VARCHAR(45)
+	senhaUsuario VARCHAR(45),
+    fkComentario INT,
+    constraint comentarioUsuario FOREIGN KEY (fkComentario)
+		REFERENCES comentarioManga(idComentario)
+);
+
+CREATE TABLE comentarioManga(
+	idComentario INT PRIMARY KEY AUTO_INCREMENT,
+    tituloManga VARCHAR(100),
+    descManga VARCHAR(255),
+    fkManga INT,
+    constraint comentarioManga FOREIGN KEY(fkManga)
+		REFERENCES manga(idManga)
 );
 
 CREATE TABLE manga (
     idManga INT PRIMARY KEY AUTO_INCREMENT,
-    linkImagem VARCHAR(500),
+    linkImagem VARCHAR(1000),
     nomeManga VARCHAR(45),
-    descriManga VARCHAR(500),
+    descriManga VARCHAR(1000),
     genero VARCHAR(45),
     qtdPaginas VARCHAR(45),
     idioma VARCHAR(50),
@@ -20,13 +32,15 @@ CREATE TABLE manga (
     autor VARCHAR(50), 
     dtLancamento timestamp
 );
+
+
+
 SELECT * FROM manga ORDER BY dtLancamento;
 SELECT * FROM usuario;	
 SELECT * FROM manga;	
 SELECT idManga FROM manga;
 DESC usuario;
 DESC manga;
-
 INSERT INTO manga VALUES
 	(NULL, 'https://static3.mangalivre.net/capas/aWkmg_q91Rd3SRIaDEKB_Q/15807/633da58f69d6f_external_cover.jpg', 'Our Tyrant Became Young', 'Eu havia possuído uma personagem dentro de um livro. No livro em que empurrei a protagonista feminina x Imperador. No dia em que chorei sobre os dois personagens que não acabaram juntos, fui enviada para cá para viver toda essa história',
 			'Ação', '39', 'pt-br', 'Koara', ' Manhwa', CURRENT_TIMESTAMP),

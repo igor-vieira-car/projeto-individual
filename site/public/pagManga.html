@@ -4,15 +4,16 @@
 <head>
     <link rel="stylesheet" href="css/stylePagManga.css">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/pagManga.css">
 </head>
 
 <body>
     <div style="width: 100%; display: flex; justify-content: center; margin-top: 2%;">
         <DIV style="width: 80%; display: flex;">
 
-            <img src="https://static3.mangalivre.net/capas/aWkmg_q91Rd3SRIaDEKB_Q/15807/633da58f69d6f_external_cover.jpg"
-                style="width: 20%; border-top-left-radius: 20px; height:50vh" alt="">
-
+            <div style="width: 30%; border-top-left-radius: 20px; height: 50vh; background-color: aliceblue;"
+                id="imgManga" alt="">
+            </div>
             <div style="width: 100%;margin-left: 5%;">
 
                 <div style="display: flex;">
@@ -29,13 +30,99 @@
                 <div>
                     Gênero
                 </div>
-                <div>Eu havia possuído uma personagem dentro de um livro. No livro em que empurrei a protagonista
-                    feminina x Imperador. No dia em que chorei sobre os dois personagens que não acabaram juntos, fui
-                    enviada para cá para viver toda essa história</div>
+                <div id="descManga"></div>
             </div>
         </DIV>
+    </div>
+    <div id="containerComentarios">
+        <div id="addComentario">
+            <h2>Publicar um comentário:</h2>
+            <br>
+            <div>Titulo do comentário:</div>
+            <input class="titulo" id="input_titulo" type="">
+            <br> <br>
+            <div>Sobre o comentário:</div>
+            <input class="desc" id="input_desc">
+            <br>
+            <button onclick="comentar()">Comentar</button>
+        </div>
     </div>
 
 </body>
 
 </html>
+
+
+
+<script>
+    fetch(`/avisos/pagManga/${sessionStorage.getItem("ID_PAGINA_MANGA")}`).then(function (resposta) {
+        if (resposta.ok) {
+            // window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+            if (resposta.status == 204) {
+                alert("Nenhum resultado encontrado.");
+
+            }
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+                console.log(resposta);
+
+                var pesquisa = resposta[0];
+
+                imgManga.innerHTML = `<img src="${pesquisa.linkImagem}" style="width: 100%; height: 100%;" alt="">`;
+                descManga.innerHTML = pesquisa.descriManga;
+            });
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
+
+    function comentar() {
+
+        var tituloVar = input_titulo.value;
+        var descVar = input_desc.value;
+        var idManga = sessionStorage.ID_PAGINA_MANGA;
+
+
+        if (tituloVar == "" || descVar == "") {
+            alert = ("Mensagem de erro para todos os campos em branco");
+
+            return false;
+        }
+
+
+        fetch("/usuarios/comentar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                tituloServer: tituloVar,
+                descServer: descVar,
+                idMangaServer: idManga
+            })
+        }).then(function (resposta) {
+            
+            console.log("resposta: ", resposta);
+            
+            if (resposta.ok) {
+
+                setTimeout(() => {
+                    window.location = "pagManga.html";
+                }, "2000")
+
+
+            } else {
+                throw ("Houve um erro ao tentar comentar!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+
+        });
+
+        return false;
+    }
+</script>

@@ -180,6 +180,7 @@ nav {
     margin-right: 2.5%;
     width: 15%;  
     position: relative;
+    margin-top: 2%;
 
 }
 #estante a #imgLivro {
@@ -192,6 +193,7 @@ nav {
 #estante a #imgLivro:hover {
     border: 1px solid white;
     transform: scale(1.2);
+    z-index: 1;
     transition: all 0.7s;
     opacity: 1;
 }   

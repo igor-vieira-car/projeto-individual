@@ -54,7 +54,7 @@
   <DIV id="div_novos">
 
 
-  
+
     <div id="novo">
     </div>
 
@@ -62,14 +62,14 @@
 
 
 
-  <div id="div_pesquisa"> <input type="text" id="pesquisar_input"> <button
-      onclick="pesquisar()">Pesquisar</button></div>
+  <div id="div_pesquisa"> <input type="text" id="pesquisar_input"> <button onclick="pesquisar()">Pesquisar</button>
+  </div>
   <div id="biblioteca">
 
     <div id="genero">
       <ul>
         <li><a href="#">Romance</a></li>
-        <li><a href="#">Jogos</a></li>
+        <li><a href="#" >Jogos</a></li>
         <li><a href="#">Ação</a></li>
         <li><a href="#">Comédia</a></li>
         <li><a href="#">Terror</a></li>
@@ -94,8 +94,8 @@
       <br>
     </div>
     <div>
-      Rua Haddock Lobo,  
-      595 - Cerqueira 
+      Rua Haddock Lobo,
+      595 - Cerqueira
       <br>
       César, São Paulo - SP, 01414-001
     </div>
@@ -107,10 +107,11 @@
     <div>
       (11) 97409-3996
       <br>atendimento@sptech.school
-       <br>FAQ - SPTech
+      <br>FAQ - SPTech
     </div>
   </footer>
 </body>
+
 </html>
 <script>
 
@@ -136,7 +137,7 @@
           var recentes = recentesResposta[i];
           console.log(recentes);
           novo.innerHTML += `
-          <img src="${recentes.linkImagem}" id="itemNovos" alt="">
+            <img src="${recentes.linkImagem}" id="itemNovos" alt="">
           `
         }
 
@@ -164,12 +165,14 @@
         for (var i = 0; i < resposta.length; i++) {
           var publicacao = resposta[i];
 
+          var panel = document.createElement("a");
+
           estante.innerHTML += `
-            <a id="container" href="pagManga.html"> 
+            <a id="container"  onclick="pagManga(${publicacao.idManga})"> 
               <img src="${publicacao.linkImagem}" id="imgLivro"  alt="">
             </a>
-            
-          ` 
+
+          `
         }
 
       });
@@ -180,6 +183,15 @@
     console.error(resposta);
   });
 
+
+  function pagManga(idManga) {
+    sessionStorage.ID_PAGINA_MANGA = idManga;
+
+    console.log("cliquei na pagina  - " + idManga);
+    window.alert("Você será redirecionado à página de edição do aviso de id número: " + idManga);
+    window.location = "/pagManga.html"
+
+  }
   /*------------------------------Pesqui9sa----------------------------------------------------*/
 
   function pesquisar() {
@@ -195,14 +207,13 @@
         resposta.json().then(function (resposta) {
           console.log("Dados recebidos: ", JSON.stringify(resposta));
           console.log(resposta);
-          var feed = document.getElementById("feed_container");
 
           estante.innerHTML = ``
           for (var i = 0; i < resposta.length; i++) {
             var pesquisa = resposta[i];
 
             estante.innerHTML += `
-            <a id="container" href="cadastro.html"> 
+            <a id="container" onclick="pagManga(${pesquisa.idManga})"> 
               <img src="${pesquisa.linkImagem}" id="imgLivro"  alt="">
             </a>
             
