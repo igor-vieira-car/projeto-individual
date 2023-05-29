@@ -5,19 +5,21 @@ CREATE TABLE usuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nomeUsuario VARCHAR(45),
     emailUsuario VARCHAR(45),
-	senhaUsuario VARCHAR(45),
-    fkComentario INT,
-    constraint comentarioUsuario FOREIGN KEY (fkComentario)
-		REFERENCES comentarioManga(idComentario)
+	senhaUsuario VARCHAR(45)
 );
-
+INSERT INTO comentarioManga (tituloComentario, descComentario, fkManga, fkUsuario, dtComentario)  VALUES('a', 'a', 2, 1, CURRENT_TIMESTAMP);
 CREATE TABLE comentarioManga(
-	idComentario INT PRIMARY KEY AUTO_INCREMENT,
-    tituloManga VARCHAR(100),
-    descManga VARCHAR(255),
+	idComentario INT auto_increment,
+    tituloComentario VARCHAR(100),
+    descComentario VARCHAR(255),
     fkManga INT,
+    fkUsuario INT,
     constraint comentarioManga FOREIGN KEY(fkManga)
-		REFERENCES manga(idManga)
+		REFERENCES manga(idManga),
+	constraint comentarioUsuario FOREIGN KEY (fkUsuario)
+		REFERENCES usuario(idUsuario),
+	PRIMARY KEY (idComentario ,fkUsuario, fkManga ),
+    dtComentario timestamp
 );
 
 CREATE TABLE manga (
@@ -33,8 +35,12 @@ CREATE TABLE manga (
     dtLancamento timestamp
 );
 
-
-
+SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario FROM manga JOIN comentarioManga 
+	ON idManga = fkManga
+		JOIN usuario 
+			on idUsuario = fkUsuario
+				WHERE idManga = 2;
+SELECT * FROM comentarioManga;
 SELECT * FROM manga ORDER BY dtLancamento;
 SELECT * FROM usuario;	
 SELECT * FROM manga;	

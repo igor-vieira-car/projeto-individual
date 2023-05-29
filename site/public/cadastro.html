@@ -77,7 +77,7 @@
         else {
         }
 
-        // Enviando o valor da nova input
+        // Enviando o valor da nova input   
         fetch("/usuarios/cadastrar", {
             method: "POST",
             headers: {
@@ -97,7 +97,6 @@
             if (resposta.ok) {
                 cardErro.style.display = "block";
 
-                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
                 
                 setTimeout(() => {
                     window.location = "login.html";

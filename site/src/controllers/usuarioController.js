@@ -94,6 +94,7 @@ function cadastrar(req, res) {
     }
 }
 
+
 function cadastrarLivro(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var linkManga = req.body.linkMangaServer; 
@@ -130,10 +131,47 @@ function cadastrarLivro(req, res) {
 }
 
 
+function comentar(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var titulo = req.body.tituloServer;
+    var desc = req.body.descServer;
+    var idManga = req.body.idMangaServer;
+    var idUsuario = req.body.idUsuarioServer;
+    
+    if (titulo == undefined) {
+        res.status(400).send("Seu titulo está undefined!");
+    } else if (desc == undefined) {
+        res.status(400).send("Sua descrição está undefined!");
+    } else if (idManga == undefined) {
+        res.status(400).send("Manga não existe!");
+    }else if (idUsuario == undefined) {
+        res.status(400).send("Faça login primeiro!");
+    } else {
+        
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.comentar(titulo, desc, idManga, idUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     cadastrar,
     cadastrarLivro,
     listar,
+    comentar,
     testar
 }

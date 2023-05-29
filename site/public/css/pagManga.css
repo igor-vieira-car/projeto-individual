@@ -5,9 +5,8 @@ body{
 #containerComentarios{
     width: 100%;
     display: flex; 
-    justify-content: center;
-    text-align: center;
     margin-top: 2%;
+    justify-content: center;
 }
 
 #addComentario{
@@ -21,4 +20,18 @@ body{
 #addComentario .desc{
     width: 70%;
     height: 30vh;
+}
+#addComentario #tituloCom{
+    text-align: center;
+}
+
+#comentarios {
+    width: 100%;
+    display: flex; 
+    margin-top: 2%;
+    justify-content: center;
+}
+
+.comentario{
+    
 }

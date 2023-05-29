@@ -36,7 +36,7 @@
     </div>
     <div id="containerComentarios">
         <div id="addComentario">
-            <h2>Publicar um comentário:</h2>
+            <h2 id="tituloCom">Publicar um comentário:</h2>
             <br>
             <div>Titulo do comentário:</div>
             <input class="titulo" id="input_titulo" type="">
@@ -48,6 +48,10 @@
         </div>
     </div>
 
+    <div id="comentarios">
+        <div class="comentario" id="comentariossss">
+        </div>
+    </div>
 </body>
 
 </html>
@@ -78,18 +82,22 @@
         console.log(`#ERRO: ${resposta}`);
     });
 
+
     function comentar() {
 
         var tituloVar = input_titulo.value;
         var descVar = input_desc.value;
         var idManga = sessionStorage.ID_PAGINA_MANGA;
-
+        var idUsuario = sessionStorage.ID_USUARIO;
 
         if (tituloVar == "" || descVar == "") {
-            alert = ("Mensagem de erro para todos os campos em branco");
+            alert("Mensagem de erro para todos os campos em branco");
 
             return false;
+        } else if (idUsuario == "") {
+            alert("Faça Login primeiro");
         }
+
 
 
         fetch("/usuarios/comentar", {
@@ -102,12 +110,13 @@
                 // Agora vá para o arquivo routes/usuario.js
                 tituloServer: tituloVar,
                 descServer: descVar,
-                idMangaServer: idManga
+                idMangaServer: idManga,
+                idUsuarioServer: idUsuario
             })
         }).then(function (resposta) {
-            
+
             console.log("resposta: ", resposta);
-            
+
             if (resposta.ok) {
 
                 setTimeout(() => {
@@ -125,4 +134,37 @@
 
         return false;
     }
+
+    /*                                     COMENTARIOS                               */
+
+    fetch(`/avisos/comentarios/${sessionStorage.getItem("ID_PAGINA_MANGA")}`).then(function (comentario) {
+        if (comentario.ok) {
+            if (comentario.status == 204) {
+            }
+
+            comentario.json().then(function (comentario) {
+                console.log("Dados recebidos: ", JSON.stringify(comentario));
+                console.log(comentario);
+
+
+                for (var i = 0; i < comentario.length; i++) {
+                    var comentarios = comentario[i];
+
+                    comentariossss.innerHTML += `
+                                            <div id="nome">Nome usuario: ${comentarios.nomeUsuario}</div>
+                                            <div>Nome titulo Comentario: ${comentarios.tituloComentario}</div>
+                                            <div>Assunto Comentario:     ${comentarios.descComentario}</div>
+                                            <br><br><br>`
+
+                }
+
+
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
 </script>
