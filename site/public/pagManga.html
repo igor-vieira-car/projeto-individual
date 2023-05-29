@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <img src="assets/icon/seta sair.png" class="sairLogin"  onclick="sair()">
     <div style="width: 100%; display: flex; justify-content: center; margin-top: 2%;">
         <DIV style="width: 80%; display: flex;">
 
@@ -16,11 +17,10 @@
             </div>
             <div style="width: 100%;margin-left: 5%;">
 
-                <div style="display: flex;">
+                <div style="display: flex; align-items: center;">
                     <div
                         style="height:8VH; width: 900%; background-color:  aliceblue;  border-bottom: 1px solid #1B263B;">
-                    </div>89PAG
-                    titulo
+                    </div><span> 89PAG </span>
                 </div>
                 <div style="width: 100%;">
                     Our Tyrant Became Young
@@ -134,7 +134,10 @@
 
         return false;
     }
+    function sair() {
 
+        window.location = "index.html";
+    }
     /*                                     COMENTARIOS                               */
 
     fetch(`/avisos/comentarios/${sessionStorage.getItem("ID_PAGINA_MANGA")}`).then(function (comentario) {
@@ -150,10 +153,11 @@
                 for (var i = 0; i < comentario.length; i++) {
                     var comentarios = comentario[i];
 
-                    comentariossss.innerHTML += `
-                                            <div id="nome">Nome usuario: ${comentarios.nomeUsuario}</div>
-                                            <div>Nome titulo Comentario: ${comentarios.tituloComentario}</div>
+                    comentariossss.innerHTML += `<div id="comentado">
+                                            <div id="nomeUsuario">Nome usuario: ${comentarios.nomeUsuario}</div>
+                                            <h2 id="tituloComentario">Nome titulo Comentario: ${comentarios.tituloComentario}</h2>
                                             <div>Assunto Comentario:     ${comentarios.descComentario}</div>
+                                        </div>
                                             <br><br><br>`
 
                 }

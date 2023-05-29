@@ -1,6 +1,5 @@
 CREATE DATABASE mangaverse;
 use mangaverse;
-DROP DATABASE mangaverse;
 CREATE TABLE usuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nomeUsuario VARCHAR(45),

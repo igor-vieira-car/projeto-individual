@@ -196,7 +196,7 @@
 
   function pesquisar() {
     var pesquisarVar = pesquisar_input.value;
-    fetch(`/avisos/pesquisar/${pesquisarVar}`).then(function (resposta) {
+    fetch(`avisos/pesquisar/${pesquisarVar}`).then(function (resposta) {
       if (resposta.ok) {
 
         if (resposta.status == 204) {
