@@ -20,6 +20,9 @@ router.post("/comentar", function (req, res) {
     usuarioController.comentar(req, res);
 });
 
+router.post("/responder", function (req, res) {
+    usuarioController.responder(req, res);
+});
 
 router.post("/cadastrarLivro", function (req, res) {
     usuarioController.cadastrarLivro(req, res);

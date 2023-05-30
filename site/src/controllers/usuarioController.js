@@ -191,6 +191,40 @@ function editar(req, res) {
 }
 
 
+function responder(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var descResposta = req.body.descRespostaServer;
+    var idComentario = req.body.idComentarioServer;
+    var idManga = req.body.idMangaServer;
+    var idUsuario = req.body.idUsuarioServer;
+    if (descResposta == undefined) {
+        res.status(400).send("Seu titulo está undefined!");
+    } else if (idComentario == undefined) {
+        res.status(400).send("Sua descrição está undefined!");
+    }else if (idManga == undefined) {
+        res.status(400).send("Manga não existe!");
+    }else if (idUsuario == undefined) {
+        res.status(400).send("Faça login primeiro!");
+    }  else {
+        
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.responder(idComentario, descResposta,idManga, idUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
 module.exports = {
     entrar,
     cadastrar,
@@ -198,5 +232,6 @@ module.exports = {
     listar,
     editar,
     comentar,
+    responder,
     testar
 }
