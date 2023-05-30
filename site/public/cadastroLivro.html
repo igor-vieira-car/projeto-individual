@@ -1,28 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastrar Livro</title>
+    <link rel="stylesheet" href="css/cadastroLivro.css">
 </head>
+
 <body>
-    
-    Link da imagem do mangá:<input id="linkManga_input" type="text" placeholder="Link imagem"> <br>
+    <img src="assets/icon/seta sair.png" class="sairLogin" onclick="sair()">
 
-    Nome do mangá:<input id="nomeLivro_input" type="text" placeholder="Nome Manga"> <br>
-    Descrição do mangá:<input id="descriManga_input" type="text" placeholder="Descriçao manga"> <br>
-    Gênero do Mangá:<input id="generoManga_input" type="text" placeholder="'Romanca'"> <br>
-    Quantidade de páginas:<input id="qtdPáginas_input" type="text" placeholder="Quantidade de páginas"> <br>      
-    idioma:<input id="idioma_input" type="text" placeholder="idioma do manga"> <br>      
-    Editora:<input id="editora_input" type="text" placeholder="Nome da Editora"> <br>      
-    Autor:<input id="autor_input" type="text" placeholder="Nome do autor"> <br>               
-    <button class="botao" onclick="cadastrarLivro()">Cadastrar</button>
+    <DIV id="livro">
+        <H1>Cadastrar Livro</H1>
+    </DIV>
 
+    <div class="dados">
+        <div class="dadosLivro">
+            <div> Link da imagem do mangá: <br><input id="linkManga_input" type="text" placeholder="Link imagem"> <br>
+            </div>
+
+            <div>Nome do mangá:<br><input id="nomeLivro_input" type="text" placeholder="Nome Manga"> <br></div>
+            <div> Descrição do mangá:<br><input id="descriManga_input" type="text" placeholder="Descriçao manga"> <br>
+            </div>
+            <div> Gênero do Mangá:<br><input id="generoManga_input" type="text" placeholder="'Romanca'"> <br></div>
+            <div> Quantidade de páginas:<br><input id="qtdPáginas_input" type="text"
+                    placeholder="Quantidade de páginas"> <br></div>
+            <div> idioma:<br><input id="idioma_input" type="text" placeholder="idioma do manga"> <br></div>
+            <div> Editora:<br><input id="editora_input" type="text" placeholder="Nome da Editora"> <br></div>
+            <div>Autor:<br><input id="autor_input" type="text" placeholder="Nome do autor"> <br></div>
+            <button class="botao" onclick="cadastrarLivro()">Cadastrar</button>
+        </div>
+    </div>
 </body>
+
 </html>
 
 <script>
+
+    function sair() {
+        window.location = "index.html";
+    }
+
     function cadastrarLivro() {
 
         //Recupere o valor da nova input pelo nome do id
@@ -35,12 +55,15 @@
         var idiomaVar = idioma_input.value;
         var editoraVar = editora_input.value;
         var autorVar = autor_input.value;
+        var fkUsuarioVar = sessionStorage.ID_USUARIO;
 
-        if (nomeLivroVar == "" ) {
+        if (nomeLivroVar == "") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-             
+
             return false;
+        }if(fkUsuarioVar == undefined){
+            alert("faça login primeiro");
         }
         else {
         }
@@ -54,29 +77,28 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                linkMangaServer:   linkMangaVar,
-                nomeLivroServer:   nomeLivroVar,
+                linkMangaServer: linkMangaVar,
+                nomeLivroServer: nomeLivroVar,
                 descriMangaServer: descriMangaVar,
                 generoMangaServer: generoMangaVar,
-                qtdPáginasServer:  qtdPáginasVar,
-                idiomaServer:   idiomaVar,
-                editoraServer:     editoraVar,
-                autorServer:    autorVar,
-            
+                qtdPáginasServer: qtdPáginasVar,
+                idiomaServer: idiomaVar,
+                editoraServer: editoraVar,
+                autorServer: autorVar,
+                fkUsuarioServer: fkUsuarioVar
+
             })
         }).then(function (resposta) {
 
             console.log("resposta: ", resposta);
             if (resposta.ok) {
-                cardErro.style.display = "block";
-
-                mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
+                
+                alert("Cadastrado com sucesso");
                 setTimeout(() => {
                     window.location = "login.html";
                 }, "2000")
 
-             
+
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }

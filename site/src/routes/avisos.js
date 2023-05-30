@@ -29,6 +29,13 @@ router.get("/comentarios/:idManga", function (req, res) {
 router.get("/pesquisar/:pesquisarVar", function (req, res) {
     avisoController.pesquisar(req, res);
 });
+
+
+router.get("/postados/:idUsuario", function (req, res) {
+    avisoController.postados(req, res);
+});
+
+
 router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listarPorUsuario(req, res);
 });

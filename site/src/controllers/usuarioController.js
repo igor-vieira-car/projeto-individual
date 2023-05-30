@@ -105,14 +105,14 @@ function cadastrarLivro(req, res) {
     var idioma = req.body.idiomaServer;
     var editora = req.body.editoraServer;
     var autor = req.body.autorServer; 
-
+    var fkUsuario = req.body.autorServer;
     // Faça as validações dos valores
     if (nomeLivro == undefined) {
         res.status(400).send("Seu nome está undefined!");
     }else {
         
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarLivro(linkManga, nomeLivro,descriManga,generoManga,qtdPáginas,idioma,editora,autor)
+        usuarioModel.cadastrarLivro(linkManga, nomeLivro,descriManga,generoManga,qtdPáginas,idioma,editora,autor, x)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -128,7 +128,7 @@ function cadastrarLivro(req, res) {
                 }
             );
     }
-}
+}   
 
 
 function comentar(req, res) {

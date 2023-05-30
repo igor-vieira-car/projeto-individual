@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros cadastrados</title>
+
+</head>
+<body>
+    <div id="">
+        <h1>Livros cadastrados</h1>
+    </div>
+</body>
+</html>
+
+<script>
+    var idUsuario = sessionStorage.ID_USUARIO;
+    fetch(`avisos/postados/${sessionStorage.getItem("ID_USUARIO")}`).then(function (resposta) {
+      if (resposta.ok) {
+
+        if (resposta.status == 204) {
+          alert("Nenhum resultado encontrado.");
+        }
+
+        resposta.json().then(function (resposta) {
+          console.log("Dados recebidos: ", JSON.stringify(resposta));
+          console.log(resposta);
+
+          
+
+        });
+      } else {
+        throw ('Houve um erro na API!');
+      }
+    }).catch(function (resposta) {
+      console.error(resposta);
+    });
+
+
+
+</script>

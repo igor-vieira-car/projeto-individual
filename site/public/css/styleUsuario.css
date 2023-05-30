@@ -1,0 +1,38 @@
+
+.sairLogin {
+    width: 80px; 
+    position: absolute; 
+    cursor: pointer;
+}
+.sairLogin:hover{
+    transform: scale(1.2);
+    transition: 1s;
+}
+
+#perfil {
+    width: 100%; 
+    display: flex; 
+    justify-content: center;
+}
+
+.dados{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.dados .usuario div input{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+    border-bottom: 1px solid black;
+    text-align: center;
+    width: 40%;
+}
+.usuario{
+    width: 50%;
+}
+.usuario div{
+    width: 100%;
+    margin-top: 4%;
+}
