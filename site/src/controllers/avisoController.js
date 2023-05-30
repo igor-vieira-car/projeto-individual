@@ -120,5 +120,6 @@ module.exports = {
     maisRecentes,
     comentarios,
     postados,
-    pagManga
+    pagManga,
+   
 }

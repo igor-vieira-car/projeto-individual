@@ -1,41 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livros cadastrados</title>
 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Livros cadastrados</title>
+  <link rel="stylesheet" href="css/livrosCadastrados.css">
 </head>
+
 <body>
-    <div id="">
-        <h1>Livros cadastrados</h1>
-    </div>
+  <div id="tituloLivros">
+    <h1>Livros cadastrados</h1>
+  </div>
+  <div id="prateleira"></div>
 </body>
+
 </html>
 
 <script>
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`avisos/postados/${sessionStorage.getItem("ID_USUARIO")}`).then(function (resposta) {
-      if (resposta.ok) {
+  var idUsuario = sessionStorage.ID_USUARIO;
 
-        if (resposta.status == 204) {
-          alert("Nenhum resultado encontrado.");
+
+
+
+  function pagManga(idManga) {
+    sessionStorage.ID_PAGINA_MANGA = idManga;
+
+    console.log("cliquei na pagina  - " + idManga);
+    console.log("Você será redirecionado à página de edição do aviso de id número: " + idManga);
+    window.location = "/pagManga.html"
+
+  }
+
+  fetch(`avisos/postados/${sessionStorage.getItem("ID_USUARIO")}`).then(function (resposta) {
+    if (resposta.ok) {
+
+      if (resposta.status == 204) {
+        alert("Nenhum resultado encontrado.");
+      }
+
+      resposta.json().then(function (resposta) {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+        console.log(resposta);
+
+        for (var i = 0; i < resposta.length; i++) {
+          var pesquisa = resposta[i];
+
+          prateleira.innerHTML += `<a id="container" onclick="pagManga(${pesquisa.idManga})"> 
+                                    <img src="${pesquisa.linkImagem}" id="imgLivro"  alt="">
+                                    <div>
+                                    <button>excluir</button>
+                                    <button>editar</button>
+                                    </div>
+                                    </a>
+                                  `
         }
 
-        resposta.json().then(function (resposta) {
-          console.log("Dados recebidos: ", JSON.stringify(resposta));
-          console.log(resposta);
 
-          
-
-        });
-      } else {
-        throw ('Houve um erro na API!');
-      }
-    }).catch(function (resposta) {
-      console.error(resposta);
-    });
+      });
+    } else {
+      throw ('Houve um erro na API!');
+    }
+  }).catch(function (resposta) {
+    console.error(resposta);
+  });
 
 
 

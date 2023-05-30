@@ -33,7 +33,7 @@ function cadastrar(nome, email, senha) {
 
 
 function cadastrarLivro(linkManga, nomeLivro,descriManga,generoManga,qtdPáginas,idioma,editora,autor, fkUsuario) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nomeLivro);
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", linkManga, nomeLivro,descriManga,generoManga,qtdPáginas,idioma,editora,autor, fkUsuario);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
@@ -57,10 +57,21 @@ function comentar(titulo, desc, idManga, idUsuario) {
     return database.executar(instrucao);
 }
 
+function editar(imagem, nomeNovo, emailNovo, idUsuario) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", imagem, nomeNovo, emailNovo, idUsuario);
+    var instrucao = `
+        
+        UPDATE usuario SET linkFotoPerfil = '${imagem}', nomeUsuario = '${nomeNovo}', emailUsuario = '${emailNovo}' where idUsuario = ${idUsuario};
+`;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     entrar,
     cadastrar,
     cadastrarLivro,
     listar,
-    comentar
+    comentar,
+    editar
 };

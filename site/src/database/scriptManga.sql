@@ -13,7 +13,7 @@ INSERT INTO usuario VALUES (NULL, NULL, 'igor', 'igor@gmail', '1234');
 INSERT INTO comentarioManga (tituloComentario, descComentario, fkManga, fkUsuario, dtComentario)  VALUES('a', 'a', 2, 1, CURRENT_TIMESTAMP);
 CREATE TABLE comentarioManga(
 	idComentario INT auto_increment,
-    tituloComentario VARCHAR(100),
+		tituloComentario VARCHAR(100),
     descComentario VARCHAR(255),
     fkManga INT,
     fkUsuario INT,
@@ -24,6 +24,8 @@ CREATE TABLE comentarioManga(
 	PRIMARY KEY (idComentario ,fkUsuario, fkManga ),
     dtComentario timestamp
 );
+
+UPDATE usuario SET linkFotoPerfil = 'a', nomeUsuario = 'a', emailUsuario = '' where idUsuario = 1;
 CREATE TABLE manga (
     idManga INT PRIMARY KEY AUTO_INCREMENT,
     linkImagem VARCHAR(1000),
@@ -52,6 +54,8 @@ SELECT * FROM manga;
 SELECT idManga FROM manga;
 DESC usuario;
 DESC manga;
+	  INSERT INTO manga (linkImagem, nomeManga, descriManga, genero, qtdPaginas, idioma, editora, autor, dtLancamento, fkUsuario)
+	VALUES('${linkManga}', '${nomeLivro}', '${descriManga}', '${generoManga}', '${qtdPáginas}', '${idioma}', '${editora}', '${autor}', CURRENT_TIMESTAMP, 1);
 INSERT INTO manga VALUES
 	(NULL, 'https://static3.mangalivre.net/capas/aWkmg_q91Rd3SRIaDEKB_Q/15807/633da58f69d6f_external_cover.jpg', 'Our Tyrant Became Young', 'Eu havia possuído uma personagem dentro de um livro. No livro em que empurrei a protagonista feminina x Imperador. No dia em que chorei sobre os dois personagens que não acabaram juntos, fui enviada para cá para viver toda essa história',
 			'Ação', '39', 'pt-br', 'Koara', ' Manhwa', CURRENT_TIMESTAMP, 1),

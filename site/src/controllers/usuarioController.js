@@ -105,14 +105,14 @@ function cadastrarLivro(req, res) {
     var idioma = req.body.idiomaServer;
     var editora = req.body.editoraServer;
     var autor = req.body.autorServer; 
-    var fkUsuario = req.body.autorServer;
+    var fkUsuario = req.body.fkUsuarioServer;
     // Faça as validações dos valores
     if (nomeLivro == undefined) {
         res.status(400).send("Seu nome está undefined!");
     }else {
         
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarLivro(linkManga, nomeLivro,descriManga,generoManga,qtdPáginas,idioma,editora,autor, x)
+        usuarioModel.cadastrarLivro(linkManga, nomeLivro,descriManga,generoManga,qtdPáginas,idioma,editora,autor, fkUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -167,11 +167,36 @@ function comentar(req, res) {
     }
 }
 
+
+function editar(req, res) {
+    var imagem = req.body.linkImagem;
+    var idUsuario = req.params.idUsuario;
+    var nomeNovo = req.body.nomeNovo;
+    var emailNovo = req.body.emailNovo;
+    
+    usuarioModel.editar(imagem, nomeNovo, emailNovo, idUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
+
 module.exports = {
     entrar,
     cadastrar,
     cadastrarLivro,
     listar,
+    editar,
     comentar,
     testar
 }
