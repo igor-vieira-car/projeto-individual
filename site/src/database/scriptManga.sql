@@ -13,17 +13,22 @@ INSERT INTO usuario VALUES (NULL, NULL, 'igor', 'igor@gmail', '1234');
 INSERT INTO comentarioManga (tituloComentario, descComentario, fkManga, fkUsuario, dtComentario)  VALUES('a', 'a', 2, 1, CURRENT_TIMESTAMP);
 CREATE TABLE comentarioManga(
 	idComentario INT auto_increment,
-		tituloComentario VARCHAR(100),
+	tituloComentario VARCHAR(100),
     descComentario VARCHAR(255),
     fkManga INT,
     fkUsuario INT,
+    fkResposta INT,
     constraint comentarioManga FOREIGN KEY(fkManga)
 		REFERENCES manga(idManga),
 	constraint comentarioUsuario FOREIGN KEY (fkUsuario)
 		REFERENCES usuario(idUsuario),
 	PRIMARY KEY (idComentario ,fkUsuario, fkManga ),
-    dtComentario timestamp
+    dtComentario timestamp,
+    constraint recursivaComentario FOREIGN KEY(fkResposta)
+		REFERENCES comentarioManga(idComentario)
 );
+
+delete FROM usuario WHERE idManga = 1;
 
 UPDATE usuario SET linkFotoPerfil = 'a', nomeUsuario = 'a', emailUsuario = '' where idUsuario = 1;
 CREATE TABLE manga (
@@ -41,12 +46,33 @@ CREATE TABLE manga (
 	constraint mangaUsuario FOREIGN KEY (fkUsuario)
 		references usuario(idUsuario)
 );
-
 SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario FROM manga JOIN comentarioManga 
 	ON idManga = fkManga
 		JOIN usuario 
-			on idUsuario = fkUsuario
+			on idUsuario = manga.fkUsuario
 				WHERE idManga = 2;
+                
+                
+SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario FROM manga JOIN comentarioManga 
+	ON idManga = fkManga
+		JOIN usuario 
+			on idUsuario = manga.fkUsuario
+				WHERE idManga = 2;
+                
+SELECT * FROM manga JOIN comentarioManga 
+	ON idManga = fkManga
+		JOIN comentarioManga as comentarioFantasma 
+			ON comentarioManga.idComentario = comentarioFantasma.fkResposta
+				WHERE idManga = 2;
+                
+SELECT * FROM manga JOIN comentarioManga 
+	ON idManga = fkManga
+		JOIN usuario 
+			on idUsuario = manga.fkUsuario
+				WHERE idComentario = 1 and fkResposta is null;
+                
+                
+                
 SELECT * FROM comentarioManga;
 SELECT * FROM manga ORDER BY dtLancamento;
 SELECT * FROM usuario;	
@@ -54,7 +80,7 @@ SELECT * FROM manga;
 SELECT idManga FROM manga;
 DESC usuario;
 DESC manga;
-	  INSERT INTO manga (linkImagem, nomeManga, descriManga, genero, qtdPaginas, idioma, editora, autor, dtLancamento, fkUsuario)
+INSERT INTO manga (linkImagem, nomeManga, descriManga, genero, qtdPaginas, idioma, editora, autor, dtLancamento, fkUsuario)
 	VALUES('${linkManga}', '${nomeLivro}', '${descriManga}', '${generoManga}', '${qtdPáginas}', '${idioma}', '${editora}', '${autor}', CURRENT_TIMESTAMP, 1);
 INSERT INTO manga VALUES
 	(NULL, 'https://static3.mangalivre.net/capas/aWkmg_q91Rd3SRIaDEKB_Q/15807/633da58f69d6f_external_cover.jpg', 'Our Tyrant Became Young', 'Eu havia possuído uma personagem dentro de um livro. No livro em que empurrei a protagonista feminina x Imperador. No dia em que chorei sobre os dois personagens que não acabaram juntos, fui enviada para cá para viver toda essa história',

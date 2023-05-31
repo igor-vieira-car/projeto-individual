@@ -49,18 +49,21 @@
     </div>
 
     <div id="comentarios">
-        <div class="comentario" id="comentariossss">
-            <div id="responder">
-
-
+        <div >
+            <div class="comentario" id="comentariossss">
 
 
 
             </div>
-            <div id="resposta">aaa</div>
-        </div>
+            <div class="respostas">
+            
+            </div>
+            <div id="botoesComentario">
 
+           </div>
+        </div>
     </div>
+
 </body>
 
 </html>
@@ -93,13 +96,13 @@
 
     function resposta(idComentario) {
 
-       
+
         var descResposta = document.getElementById(`input_descResposta${idComentario}`).value;
 
         var indentificadoComentario = idComentario;
         var idManga = sessionStorage.ID_PAGINA_MANGA;
-        var idUsuario = sessionStorage.ID_USUARIO; 
-        
+        var idUsuario = sessionStorage.ID_USUARIO;
+
         if (descResposta == "" || indentificadoComentario == "") {
             alert("Mensagem de erro para todos os campos em branco");
 
@@ -220,9 +223,11 @@
                                                     <div>Assunto Comentario:     ${comentarios.descComentario}</div>
                                                 </div>
                                                 <br><br><br>
+                                               
                                                 <input id="input_descResposta${comentarios.idComentario}">
-                                                <button onclick="resposta(${comentarios.idComentario})">responder comentario</button>`
-                                                
+                                                <button onclick="resposta(${comentarios.idComentario})">responder comentario</button>
+                                                <br><br>`
+
                 }
 
 
@@ -233,5 +238,36 @@
     }).catch(function (resposta) {
         console.error(resposta);
     });
+
+
+    fetch(`/avisos/listarRespostas/${sessionStorage.getItem("ID_PAGINA_MANGA")}`).then(function (comentario) {
+        if (comentario.ok) {
+            if (comentario.status == 204) {
+            }
+
+            comentario.json().then(function (comentario) {
+                console.log("Dados recebidos: ", JSON.stringify(comentario));
+                console.log(comentario);
+
+
+                for (var i = 0; i < comentario.length; i++) {
+                    var comentarios = comentario[i];
+                    respostas.innerHTML += `a
+                                               `
+
+                                               
+                    respostas.innerHTML += `A`
+                }
+
+
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+
 
 </script>

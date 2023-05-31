@@ -42,7 +42,7 @@ body{
 }
 
 .comentario{
-    width: 80%;
+    width: 80vw;
 }
 .comentario #nomeUsuario{
     text-align: left;

@@ -26,6 +26,10 @@ router.get("/comentarios/:idManga", function (req, res) {
     avisoController.comentarios(req, res);
 });
 
+router.get("/comentarios/:listarRespostas:", function (req, res) {    
+    avisoController.listarRespostas(req, res);
+});
+
 router.get("/pesquisar/:pesquisarVar", function (req, res) {
     avisoController.pesquisar(req, res);
 });

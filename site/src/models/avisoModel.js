@@ -63,9 +63,8 @@ function comentarios(idManga) {
     SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario FROM manga JOIN comentarioManga 
 	ON idManga = fkManga
 		JOIN usuario 
-			on idUsuario = fkUsuario
-				WHERE idManga = ${idManga};
-    `;
+			on idUsuario = manga.fkUsuario
+				WHERE idManga = ${idManga} and fkResposta is null;`;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
