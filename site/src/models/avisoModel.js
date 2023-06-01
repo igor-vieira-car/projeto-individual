@@ -63,7 +63,7 @@ function comentarios(idManga) {
     SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario FROM manga JOIN comentarioManga 
 	ON idManga = fkManga
 		JOIN usuario 
-			on idUsuario = manga.fkUsuario
+			on idUsuario = comentarioManga.fkUsuario
 				WHERE idManga = ${idManga} and fkResposta is null;`;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -151,6 +151,17 @@ function publicar(titulo, descricao, idUsuario) {
     return database.executar(instrucao);
 }
 
+
+function deletarLivro(idManga) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idManga);
+    var instrucao = `
+        DELETE FROM manga WHERE idManga = ${idManga};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
 module.exports = {
     listar,
     listarLivro,
@@ -158,6 +169,7 @@ module.exports = {
     pesquisarDescricao,
     maisRecentes,
     pesquisar,
+    deletarLivro,
     comentarios,
     publicar,
     postados,

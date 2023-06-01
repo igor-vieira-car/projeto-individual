@@ -44,6 +44,10 @@ router.get("/listar/:idUsuario", function (req, res) {
     avisoController.listarPorUsuario(req, res);
 });
 
+router.delete("/deletarLivro/:idManga", function (req, res) {
+    avisoController.deletarLivro(req, res);
+});
+
 router.get("/pesquisar/:descricao", function (req, res) {
     avisoController.pesquisarDescricao(req, res);
 });

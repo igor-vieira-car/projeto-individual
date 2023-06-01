@@ -36,5 +36,9 @@ router.put("/editar/:idUsuario", function (req, res) {
     usuarioController.editar(req, res);
 });
 
+router.put("/editarLivro/:idManga", function (req, res) {
+    usuarioController.editarLivro(req, res);
+});
+
 
 module.exports = router;

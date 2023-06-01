@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Livro</title>
+    <link rel="stylesheet" href="css/cadastroLivro.css">
+</head>
+
+<body>
+    <img src="assets/icon/seta sair.png" class="sairLogin" onclick="sair()">
+
+    <DIV id="livro">
+        <H1>Cadastrar Livro</H1>
+    </DIV>
+
+    <div class="dados">
+        <div class="dadosLivro">
+            <div> Link da imagem do mangá: <br><input id="linkManga_input" type="text" placeholder="Link imagem"> <br>
+            </div>
+
+            <div>Nome do mangá:<br><input id="nomeLivro_input" type="text" placeholder="Nome Manga"> <br></div>
+            <div> Descrição do mangá:<br><input id="descriManga_input" type="text" placeholder="Descriçao manga"> <br>
+            </div>
+            <div> Gênero do Mangá:<br><input id="generoManga_input" type="text" placeholder="'Romanca'"> <br></div>
+            <div> Quantidade de páginas:<br><input id="qtdPáginas_input" type="text"
+                    placeholder="Quantidade de páginas"> <br></div>
+            <div> idioma:<br><input id="idioma_input" type="text" placeholder="idioma do manga"> <br></div>
+            <div> Editora:<br><input id="editora_input" type="text" placeholder="Nome da Editora"> <br></div>
+            <div>Autor:<br><input id="autor_input" type="text" placeholder="Nome do autor"> <br></div>
+            <br>
+            <button class="botao" onclick="editarLivro()">Atualizar</button>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+var idManga = sessionStorage.getItem("ID_MANGA_EDITANDO");
+
+    var fkUsuarioVar = sessionStorage.ID_USUARIO;
+    function sair() {
+
+window.location = "index.html";
+}
+
+    function editarLivro() {
+        
+    alert(`${idManga}`)
+        fetch(`/usuarios/editarLivro/${idManga}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                linkMangaServer : linkManga_input.value,
+                nomeLivroServer : nomeLivro_input.value,
+                descriMangaServer : descriManga_input.value,
+                generoMangaServer : generoManga_input.value,
+                qtdPáginasServer : qtdPáginas_input.value,
+                idiomaServer: idioma_input.value,
+                editoraServer : editora_input.value,
+                autorServer : autor_input.value
+
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("ATUALIZADO COM SUCESSO");
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
+
+
+    fetch(`/avisos/pagManga/${idManga}`).then(function (resposta) {
+        if (resposta.ok) {
+            // window.alert("Post atualizado com sucesso pelo usuario de email: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+            if (resposta.status == 204) {
+                alert("Nenhum resultado encontrado.");
+
+            }
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+                console.log(resposta);
+
+                var pesquisa = resposta[0];
+
+                linkManga_input.value = pesquisa.linkImagem;
+                nomeLivro_input.value = pesquisa.nomeManga;
+                descriManga_input.value = pesquisa.descriManga;
+                generoManga_input.value = pesquisa.genero;
+                qtdPáginas_input.value = pesquisa.qtdPaginas;
+                idioma_input.value = pesquisa.idioma;
+                editora_input.value = pesquisa.editora;
+                autor_input.value = pesquisa.autor;
+
+
+            });
+        } else {
+            throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
+
+</script>

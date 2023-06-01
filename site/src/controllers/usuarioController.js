@@ -33,7 +33,7 @@ function entrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
-        
+
         usuarioModel.entrar(email, senha)
             .then(
                 function (resultado) {
@@ -74,7 +74,7 @@ function cadastrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else {
-        
+
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, email, senha)
             .then(
@@ -97,22 +97,22 @@ function cadastrar(req, res) {
 
 function cadastrarLivro(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var linkManga = req.body.linkMangaServer; 
+    var linkManga = req.body.linkMangaServer;
     var nomeLivro = req.body.nomeLivroServer;
-    var descriManga = req.body.descriMangaServer; 
+    var descriManga = req.body.descriMangaServer;
     var generoManga = req.body.generoMangaServer;
     var qtdPáginas = req.body.qtdPáginasServer;
     var idioma = req.body.idiomaServer;
     var editora = req.body.editoraServer;
-    var autor = req.body.autorServer; 
+    var autor = req.body.autorServer;
     var fkUsuario = req.body.fkUsuarioServer;
     // Faça as validações dos valores
     if (nomeLivro == undefined) {
         res.status(400).send("Seu nome está undefined!");
-    }else {
-        
+    } else {
+
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarLivro(linkManga, nomeLivro,descriManga,generoManga,qtdPáginas,idioma,editora,autor, fkUsuario)
+        usuarioModel.cadastrarLivro(linkManga, nomeLivro, descriManga, generoManga, qtdPáginas, idioma, editora, autor, fkUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -128,7 +128,7 @@ function cadastrarLivro(req, res) {
                 }
             );
     }
-}   
+}
 
 
 function comentar(req, res) {
@@ -137,17 +137,17 @@ function comentar(req, res) {
     var desc = req.body.descServer;
     var idManga = req.body.idMangaServer;
     var idUsuario = req.body.idUsuarioServer;
-    
+
     if (titulo == undefined) {
         res.status(400).send("Seu titulo está undefined!");
     } else if (desc == undefined) {
         res.status(400).send("Sua descrição está undefined!");
     } else if (idManga == undefined) {
         res.status(400).send("Manga não existe!");
-    }else if (idUsuario == undefined) {
+    } else if (idUsuario == undefined) {
         res.status(400).send("Faça login primeiro!");
     } else {
-        
+
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.comentar(titulo, desc, idManga, idUsuario)
             .then(
@@ -173,7 +173,7 @@ function editar(req, res) {
     var idUsuario = req.params.idUsuario;
     var nomeNovo = req.body.nomeNovo;
     var emailNovo = req.body.emailNovo;
-    
+
     usuarioModel.editar(imagem, nomeNovo, emailNovo, idUsuario)
         .then(
             function (resultado) {
@@ -191,6 +191,34 @@ function editar(req, res) {
 }
 
 
+function editarLivro(req, res) {
+    var idManga = req.params.idManga;
+    var linkImagem  = req.body.linkMangaServer
+    var nomeLivro = req.body.nomeLivroServer
+    var descriManga = req.body.descriMangaServer
+    var generoManga = req.body.generoMangaServer
+    var qtdPaginas = req.body.qtdPáginasServer
+    var idioma = req.body.idiomaServer
+    var editora = req.body.editoraServer
+    var autor = req.body.autorServer
+
+    console.log("controollers");
+    usuarioModel.editarLivro(idManga ,linkImagem, nomeLivro, descriManga,generoManga ,qtdPaginas, idioma,editora,autor )
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 function responder(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var descResposta = req.body.descRespostaServer;
@@ -201,14 +229,14 @@ function responder(req, res) {
         res.status(400).send("Seu titulo está undefined!");
     } else if (idComentario == undefined) {
         res.status(400).send("Sua descrição está undefined!");
-    }else if (idManga == undefined) {
+    } else if (idManga == undefined) {
         res.status(400).send("Manga não existe!");
-    }else if (idUsuario == undefined) {
+    } else if (idUsuario == undefined) {
         res.status(400).send("Faça login primeiro!");
-    }  else {
-        
+    } else {
+
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.responder(idComentario, descResposta,idManga, idUsuario)
+        usuarioModel.responder(idComentario, descResposta, idManga, idUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -231,6 +259,7 @@ module.exports = {
     cadastrarLivro,
     listar,
     editar,
+    editarLivro,
     comentar,
     responder,
     testar

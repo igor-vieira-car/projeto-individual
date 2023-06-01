@@ -10,10 +10,17 @@
 </head>
 
 <body>
+
+  <img src="assets/icon/seta sair.png" class="sairLogin" onclick="sair()">
   <div id="tituloLivros">
-    <h1>Livros cadastrados</h1>
+    <h1>Mangás cadastrados</h1>
   </div>
   <div id="prateleira"></div>
+
+
+  <div id="maisCadastros">
+    <button onclick="cadastroLivro()">Cadastre Mangá</button>
+  </div>
 </body>
 
 </html>
@@ -21,8 +28,37 @@
 <script>
   var idUsuario = sessionStorage.ID_USUARIO;
 
+  function sair() {
 
+    window.location = "index.html";
+  }
+    function editarLivro(idManga) {
+        sessionStorage.ID_MANGA_EDITANDO = idManga;
+        window.alert("Você será redirecionado à página de edição do mangá de id número: " + idManga);
+        window.location = "/editLivro.html"
+    }
 
+  function excluirLivro(idManga) {
+    console.log("Criar função de apagar post escolhido - ID" + idManga);
+    fetch(`/avisos/deletarLivro/${idManga}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(function (resposta) {
+
+      if (resposta.ok) {
+        window.alert("Livro deletado com sucesso pelo! usuário: " + sessionStorage.getItem("EMAIL_USUARIO") + "!");
+        window.location = "/livrosCadastrados.html"
+      } else if (resposta.status == 404) {
+        window.alert("Deu 404!");
+      } else {
+        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+  }
 
   function pagManga(idManga) {
     sessionStorage.ID_PAGINA_MANGA = idManga;
@@ -47,11 +83,12 @@
         for (var i = 0; i < resposta.length; i++) {
           var pesquisa = resposta[i];
 
-          prateleira.innerHTML += `<a id="container" onclick="pagManga(${pesquisa.idManga})"> 
-                                    <img src="${pesquisa.linkImagem}" id="imgLivro"  alt="">
-                                    <div>
-                                    <button>excluir</button>
-                                    <button>editar</button>
+          prateleira.innerHTML += `<a id="container" > 
+                                    <img src="${pesquisa.linkImagem}"  onclick="pagManga(${pesquisa.idManga})" id="imgLivro"  alt="">
+                                    <div id="botoes">
+                                    <button onclick="excluirLivro(${pesquisa.idManga})">excluir</button>
+         
+                                    <button onclick="editarLivro(${pesquisa.idManga})">editar</button>
                                     </div>
                                     </a>
                                   `
@@ -66,6 +103,9 @@
     console.error(resposta);
   });
 
+  function cadastroLivro(){
+    window.location = "cadastroLivro.html"
+  }
 
 
 </script>

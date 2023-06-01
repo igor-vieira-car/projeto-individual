@@ -9,28 +9,24 @@ CREATE TABLE usuario(
     emailUsuario VARCHAR(45),
 	senhaUsuario VARCHAR(45)
 );
-INSERT INTO usuario VALUES (NULL, NULL, 'igor', 'igor@gmail', '1234');
-INSERT INTO comentarioManga (tituloComentario, descComentario, fkManga, fkUsuario, dtComentario)  VALUES('a', 'a', 2, 1, CURRENT_TIMESTAMP);
+
 CREATE TABLE comentarioManga(
 	idComentario INT auto_increment,
-	tituloComentario VARCHAR(100),
+		tituloComentario VARCHAR(100),
     descComentario VARCHAR(255),
     fkManga INT,
     fkUsuario INT,
     fkResposta INT,
     constraint comentarioManga FOREIGN KEY(fkManga)
-		REFERENCES manga(idManga),
+		REFERENCES manga(idManga) ON DELETE CASCADE,
 	constraint comentarioUsuario FOREIGN KEY (fkUsuario)
 		REFERENCES usuario(idUsuario),
 	PRIMARY KEY (idComentario ,fkUsuario, fkManga ),
-    dtComentario timestamp,
-    constraint recursivaComentario FOREIGN KEY(fkResposta)
-		REFERENCES comentarioManga(idComentario)
+    constraint recursivaResposta FOREIGN KEY(fkResposta)
+		REFERENCES comentarioManga(idComentario),
+    dtComentario timestamp
 );
-
-delete FROM usuario WHERE idManga = 1;
-
-UPDATE usuario SET linkFotoPerfil = 'a', nomeUsuario = 'a', emailUsuario = '' where idUsuario = 1;
+UPDATE manga SET linkImagem = '', nomeManga = '', descriManga = '', genero = '', qtdPaginas = '', idioma = '', editora ='', autor ='' WHERE idManga = '';
 CREATE TABLE manga (
     idManga INT PRIMARY KEY AUTO_INCREMENT,
     linkImagem VARCHAR(1000),
@@ -46,41 +42,37 @@ CREATE TABLE manga (
 	constraint mangaUsuario FOREIGN KEY (fkUsuario)
 		references usuario(idUsuario)
 );
-SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario FROM manga JOIN comentarioManga 
-	ON idManga = fkManga
-		JOIN usuario 
-			on idUsuario = manga.fkUsuario
-				WHERE idManga = 2;
-                
-                
-SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario FROM manga JOIN comentarioManga 
-	ON idManga = fkManga
-		JOIN usuario 
-			on idUsuario = manga.fkUsuario
-				WHERE idManga = 2;
-                
-SELECT * FROM manga JOIN comentarioManga 
-	ON idManga = fkManga
-		JOIN comentarioManga as comentarioFantasma 
-			ON comentarioManga.idComentario = comentarioFantasma.fkResposta
-				WHERE idManga = 2;
-                
-SELECT * FROM manga JOIN comentarioManga 
-	ON idManga = fkManga
-		JOIN usuario 
-			on idUsuario = manga.fkUsuario
-				WHERE idComentario = 1 and fkResposta is null;
-                
-                
-                
+INSERT INTO usuario VALUES (NULL, NULL, 'igor', 'igor@gmail', '1234');
+INSERT INTO comentarioManga (tituloComentario, descComentario, fkManga, fkUsuario, dtComentario)  VALUES('a', 'a', 2, 1, CURRENT_TIMESTAMP);
+
+
+UPDATE usuario SET linkFotoPerfil = 'a', nomeUsuario = 'a', emailUsuario = '' where idUsuario = 1;
+
+
 SELECT * FROM comentarioManga;
+
+SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario, comentarioManga.fkUsuario FROM manga JOIN comentarioManga 
+	ON idManga = fkManga
+		JOIN usuario 
+			on idUsuario = comentarioManga.fkUsuario
+				WHERE idManga = 11 and fkResposta is null;
+
+SELECT * FROM comentarioManga JOIN usuario
+	ON fkUsuario = idUsuario;
+
+SELECT * FROM comentarioManga;
+SELECT * FROM usuario;
+    
 SELECT * FROM manga ORDER BY dtLancamento;
 SELECT * FROM usuario;	
 SELECT * FROM manga;	
 SELECT idManga FROM manga;
 DESC usuario;
 DESC manga;
-INSERT INTO manga (linkImagem, nomeManga, descriManga, genero, qtdPaginas, idioma, editora, autor, dtLancamento, fkUsuario)
+desc comentarioManga;
+DELETE FROM comentarioManga WHERE fkManga = 2 order by fkResposta;
+DELETE FROM comentarioManga WHERE fkResposta = 2;
+	  INSERT INTO manga (linkImagem, nomeManga, descriManga, genero, qtdPaginas, idioma, editora, autor, dtLancamento, fkUsuario)
 	VALUES('${linkManga}', '${nomeLivro}', '${descriManga}', '${generoManga}', '${qtdPáginas}', '${idioma}', '${editora}', '${autor}', CURRENT_TIMESTAMP, 1);
 INSERT INTO manga VALUES
 	(NULL, 'https://static3.mangalivre.net/capas/aWkmg_q91Rd3SRIaDEKB_Q/15807/633da58f69d6f_external_cover.jpg', 'Our Tyrant Became Young', 'Eu havia possuído uma personagem dentro de um livro. No livro em que empurrei a protagonista feminina x Imperador. No dia em que chorei sobre os dois personagens que não acabaram juntos, fui enviada para cá para viver toda essa história',
@@ -93,3 +85,9 @@ INSERT INTO manga VALUES
 			'Drama','30','pt-br', 'Kim Soo Oh', 'Lady Otomen Projec', CURRENT_TIMESTAMP, 1),
 	(NULL, 'https://static3.mangalivre.net/capas/RCCZHtMmaNEjVbaSv9f89Q/15317/6294cddc0449d_external_cover.jpg', 'Tsukanoma no Ichika', 'Na primavera de seu segundo ano do ensino médio, Sendawara Ichika foi informada por seu médico que ela tinha dois anos de vida. Três anos se passaram. Agora na faculdade, Ichika, passa seus dias sem saber quando chegará o fim. Um dia por acaso, ela encontra seu ex-professor de filosofia. Uma história de amor entre uma garota, cuja a vida está ficando mais curta, e um homem que aos poucos está tentando desaparecer.',
 			'Drama', '31', 'pt-br', 'Imai Masako',' NTV', CURRENT_TIMESTAMP, 1);
+            
+            
+SELECT idComentario, tituloComentario, descComentario, dtComentario, nomeUsuario, emailUsuario FROM manga JOIN comentarioManga 
+	ON idManga = fkManga
+		JOIN usuario 
+			on fkU;
