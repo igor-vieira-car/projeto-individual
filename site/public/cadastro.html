@@ -11,8 +11,10 @@
     <script src="./js/funcoes.js"></script>
     <link rel="stylesheet" href="./css/singUp.css">
 
+    <script src="js/funcoes.js"></script>
     <link rel="icon" href="./assets/icon/logo proheto idividuas.png">
 
+    <script src="js/funcoes.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
@@ -20,6 +22,9 @@
 </head>
 
 <body>  
+
+    <img src="assets/icon/seta sair.png" class="sairLogin" onclick="sair()">
+
     <div class="container">
         <div class="livro">
             <div class="pag" id="pagLogin">
@@ -69,15 +74,19 @@
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
 
         if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+     
+            alert("Existem campos em branco");
              
             return false;
-        }
-        else {
-        }
-
-        // Enviando o valor da nova input   
+        }else if(nomeVar.length <=2){
+            alert("Tamanho de nome inválido");
+        }else if(senhaVar.length < 4){
+            alert("Senha tem que ter mais que 4 caracteres")
+        }else if(senhaVar != confirmacaoSenhaVar) {
+            alert("Os campos senhas tem que ter o mesmo valor")
+        }else if(emailVar.search("@")==-1 ){
+            alert("Email inválido!");
+        }else{
         fetch("/usuarios/cadastrar", {
             method: "POST",
             headers: {
@@ -112,6 +121,7 @@
         });
 
         return false;
+    }
     }
 
 

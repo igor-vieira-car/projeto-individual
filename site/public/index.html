@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/style.css">
-  <title>Projeto idividuas</title>
+  <title>Manga Verse</title>
 </head>
 <!-- Palheta de cores 
 #0D1B2A
@@ -21,27 +21,26 @@
     <ul id="listHome">
       <li></li>
       <li><a href="#carousel">Home</a> </li>
+      <li><a href="#" id="cadastrar">Cadastrar Livro</a></li>
 
-      <li><a href="livrosCadastrados.html "id="cadastrados">Livros Cadastrados</a></li>
-
-      <li><a href="#" id="cadastrar" >Cadastrar Livro</a></li>
-
-      <li><a href="#contatos" >Contatos</a></li>
+      <li><a href="#contatos">Contatos</a></li>
     </ul>
 
     <div id="perfil">
-      <a href="" id="perfilUsuario"></a>
+      <a onclick="perfil()" id="perfilUsuario"></a>
     </div>
   </nav>
 
+  <a id="navPerfil"></a>
+
   <div id="carousel">
-    <button onclick="voltar()">""</button>
+    <img src="assets/icon/seta sair.png" onclick="voltar()" id="passar" class="buttonCarousel voltar"   alt="">
 
     <div id="imagemCarousel">
-      
-    </div>
 
-    <button id="passar" onclick="passar()">""</button>
+    </div>
+    <img src="assets/icon/seta sair.png" onclick="passar()" id="passar" class="buttonCarousel passar"   alt="">
+
   </div>
 
   <div id="text_novos">
@@ -66,7 +65,7 @@
     <div id="genero">
       <ul>
         <li><a href="#">Romance</a></li>
-        <li><a href="#" >Jogos</a></li>
+        <li><a href="#">Jogos</a></li>
         <li><a href="#">Ação</a></li>
         <li><a href="#">Comédia</a></li>
         <li><a href="#">Terror</a></li>
@@ -83,12 +82,18 @@
 
 
 
-  <footer >
+  <footer>
     <a href="" id="contatos"></a>
     <div>
-      Eu sou ele
-      <br style="margin-top: 0%; background-color: black;">
-      ele é eu
+      Bem vindo ao mangaVerse, 
+      <br>
+      o seu site de mangá,  
+      <br>
+      sintase avontade para falar 
+      <br>
+
+      de mangá e dar sua opnião
+
       <br>
     </div>
     <div>
@@ -96,10 +101,6 @@
       595 - Cerqueira
       <br>
       César, São Paulo - SP, 01414-001
-    </div>
-
-    <div>
-      links
     </div>
 
     <div>
@@ -111,24 +112,45 @@
 </body>
 
 <a href="cadastro.html"></a>
+
 </html>
 <script>
 
+  var perfilAberto = false;
 
-  
-  if(sessionStorage.NOME_USUARIO == undefined ){
-      perfilUsuario.innerHTML = "Entre já"
-      perfilUsuario.href = "cadastro.html"
-      cadastrados.href =  "cadastro.html"
-      cadastrar.href = "cadastro.html"
-  }else{
+
+  if (sessionStorage.NOME_USUARIO == undefined) {
+    perfilUsuario.innerHTML = "Entre já"
+    perfilUsuario.href = "cadastro.html"
+    cadastrar.href = "cadastro.html"
+  } else {
     perfilUsuario.innerHTML = sessionStorage.NOME_USUARIO
-    perfilUsuario.href = "perfilUsuario.html"
-    cadastrados.href =  "livrosCadastrados.html"
     cadastrar.href = "cadastroLivro.html"
+    function perfil() {
+      if (perfilAberto == false) {
+        navPerfil.innerHTML = "bb"
+        navPerfil.innerHTML = `<div id="dadosPerfilUsuario" >
+                                <a href="perfilUsuario.html" >Perfil</a>
+                                <br>
+                                <br>
+                                <a href="livrosCadastrados.html" > Mangás Cadastrados</a>
+                                <br>
+                                <br>
+                                <a onClick="sairSessao()"> Sair da conta</a>
+                             </div>`
+        perfilAberto = true;
+      } else {
+        perfilAberto = false;
+        dadosPerfilUsuario.style.display = 'none';
+
+      }
+    }
   }
 
-
+  function sairSessao() {
+    sessionStorage.clear();
+    window.location = "login.html";
+  }
   /*                            PEGANDO MANGÁS MAIS RECENTES                                */
   fetch("/avisos/maisRecentes").then(function (recentesResposta) {
     if (recentesResposta.ok) {
@@ -144,7 +166,7 @@
           var recentes = recentesResposta[i];
           console.log(recentes);
           novo.innerHTML += `
-            <img src="${recentes.linkImagem}" id="itemNovos" alt="">
+            <img src="${recentes.linkImagem}" onclick="pagManga(${recentes.idManga})" id="itemNovos" alt="">
           `
         }
 
@@ -158,7 +180,7 @@
 
 
 
-/*                            PEGANDO TODOS OS MANGÁS                             */
+  /*                            PEGANDO TODOS OS MANGÁS                             */
   fetch("/avisos/listarLivro").then(function (resposta) {
     if (resposta.ok) {
       if (resposta.status == 204) {
@@ -190,19 +212,26 @@
     console.error(resposta);
   });
 
-/*                            REDIRECIONANDO PARA A PÁGINA DO MANGA CLICADO                                */
+  /*                            REDIRECIONANDO PARA A PÁGINA DO MANGA CLICADO                                */
   function pagManga(idManga) {
+
     sessionStorage.ID_PAGINA_MANGA = idManga;
 
     console.log("cliquei na pagina  - " + idManga);
     console.log("Você será redirecionado à página de edição do aviso de id número: " + idManga);
     window.location = "/pagManga.html"
 
+
   }
   /*------------------------------PESQUISA DO MANGA----------------------------------------------------*/
 
   function pesquisar() {
     var pesquisarVar = pesquisar_input.value;
+
+    if(pesquisarVar == ""){
+      alert("Campo em branco");
+    }
+
     fetch(`avisos/pesquisar/${pesquisarVar}`).then(function (resposta) {
       if (resposta.ok) {
 
@@ -240,9 +269,12 @@
 
   /*------------------------------CAROUSEL----------------------------------------------------*/
   var num = 2;
-  var fotoCarousel = [`<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`,`<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`,`<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`]
-  imagemCarousel.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`
+  var fotoCarousel = [`<img src="assets/1.jpg" alt="">`, `<img src="assets/2.png" alt="">`, `<img src="assets/3.png"" alt="">`]
 
+
+  imagemCarousel.innerHTML = `${fotoCarousel[num]}`
+  /*  imagemCarousel.innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Mango_-_single.jpg/1024px-Mango_-_single.jpg" alt="">`
+  */
   var carousel = {
     verificar: function () {
       if (num == -1) {

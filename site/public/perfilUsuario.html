@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Configurações perfil</title>
     <link rel="stylesheet" href="css/styleUsuario.css">
+    <script src="js/funcoes.js"></script>
 </head>
 
 <body>
@@ -14,7 +15,7 @@
     <img src="assets/icon/seta sair.png" class="sairLogin" onclick="sair()">
     <DIV id="perfil">
         <H2> ATUALIZAR PERFIL USUARIO</H2>
-        <H2> Adicionar endereço</H2>
+        <H2 style="margin-right: 55px;"> Adicionar endereço</H2>
 
     </DIV>
     <div class="dados">
@@ -64,10 +65,9 @@
     input_nome.value = `${sessionStorage.NOME_USUARIO}`;
     input_email.value = `${sessionStorage.EMAIL_USUARIO}`;
 
-    function sair() {
-        window.location = "index.html";
-    }
+
     function editar() {
+
         fetch(`/usuarios/editar/${sessionStorage.getItem("ID_USUARIO")}`, {
             method: "PUT",
             headers: {

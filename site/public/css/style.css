@@ -7,6 +7,7 @@
 }
 
 body {
+    overflow-x: hidden;
     padding: 0;
     margin: 0;
     background-color: #E0E1DD;
@@ -23,16 +24,17 @@ nav {
     background-color: #1B263B;
 
 }
-#logo{
-}
-#imgLogo{
+
+#logo {}
+
+#imgLogo {
     width: 130px;
 }
 
 #listHome {
     display: flex;
     justify-content: space-around;
-    width: 70%;
+    width: 55%;
 
 }
 
@@ -46,7 +48,7 @@ nav {
     text-decoration: none;
     color: #E0E1DD;
     font-size: 25px;
-    
+
 }
 
 #listHome li a:hover {
@@ -70,6 +72,51 @@ nav {
     text-align: center;
     margin-left: 2%;
     color: #FFD700;
+
+    cursor: pointer;
+}
+
+#perfilUsuario {
+    color: #E0E1DD;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+
+#navPerfil {
+
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    margin-left: 86%;
+
+}
+
+#navPerfil div {
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    background-color: #E0E1DD;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    display: block;
+    transition: all 1s;
+
+    cursor: pointer;
+}
+
+#navPerfil div a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+
+    margin-top: 5%;
+}
+
+#dadosPerfilUsuario a {
+    font-size: 17px;
+    margin-top: 5%;
 }
 
 /*                       FIM DA NAV                                         */
@@ -78,8 +125,24 @@ nav {
 #carousel {
     display: flex;
     width: 100%;
-    height: 50vh;
+    height: 70vh;
     justify-content: space-between;
+}
+
+#carousel .buttonCarousel {
+    position: absolute;
+    display: flex;
+    text-align: center;
+    margin-top: 13%;
+    cursor: pointer;
+    position: absolute;
+    width: 100px;
+    align-items: center;
+}
+
+#carousel .passar{
+    right: 0;
+    transform: rotate(180deg);
 }
 
 #imagemCarousel {
@@ -91,56 +154,70 @@ nav {
     width: 100%;
     height: 100%;
 }
-#text_novos{
-    width: 100%; 
+
+#text_novos {
+    width: 100%;
     text-align: center;
     margin-top: 5%;
 }
-#novo{
+
+#novo {
     width: 100%;
     height: 100%;
-    background-color: #778DA9; 
-    display: flex; 
+    background-color: #778DA9;
+    display: flex;
     justify-content: space-evenly;
 }
-/*                       FIM DA CAROUSEL                                  */
 
-/*                       Inicio Mangas novos                                      */ 
-
-#div_novos{
-    width: 100%; 
-    height: 50vh;
-    background-color: #003399;
-    
-    display: flex; 
+#novo img   {
+    transition: all .5s;
+}
+#novo img:hover{
+    transform: scale(1.1);
+    transition: all 1s;
 }
 
-/*                         Fim Mangas novos                                      */ 
+/*                       FIM DA CAROUSEL                                  */
+
+/*                       Inicio Mangas novos                                      */
+
+#div_novos {
+    width: 100%;
+    height: 50vh;
+    background-color: #003399;
+
+    display: flex;
+}
+
+/*                         Fim Mangas novos                                      */
 
 
 
 /*                       MANGAS                                  */
-#div_pesquisa{
-    width: 100%; 
-    height: 10vh; 
-       justify-content: right; 
+#div_pesquisa {
+    width: 100%;
+    height: 10vh;
+    justify-content: right;
     display: flex;
     margin-top: 2%;
     margin-bottom: 2%;
 }
-#div_pesquisa input{
+
+#div_pesquisa input {
     border-radius: 25px;
     width: 20%;
     margin-right: 5%;
     height: 30%;
-    
+
     text-align: center;
 }
-#div_pesquisa button{
+
+#div_pesquisa button {
     text-align: center;
     margin-right: 2%;
     height: 30%;
 }
+
 #biblioteca {
     width: 100%;
     display: flex;
@@ -155,9 +232,9 @@ nav {
 
 #genero ul li {
     text-decoration: none;
-    
+
     margin-top: 10%;
-    
+
 }
 
 #genero ul li a {
@@ -178,14 +255,15 @@ nav {
     height: 35vh;
     margin-left: 2.5%;
     margin-right: 2.5%;
-    width: 15%;  
+    width: 15%;
     position: relative;
     margin-top: 2%;
 
 }
+
 #estante a #imgLivro {
-    width: 100%;    
-    height: 100%;   
+    width: 100%;
+    height: 100%;
     transition: all 0.4s;
 }
 
@@ -196,7 +274,7 @@ nav {
     z-index: 1;
     transition: all 0.7s;
     opacity: 1;
-}   
+}
 
 
 
@@ -218,4 +296,9 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    text-align: center;
+}
+
+footer div{
+    text-align: center;
 }

@@ -5,8 +5,8 @@ var mysql = require("mysql2");
 var sqlServerConfig = {
     server: "localhost",
     database: "mangaverse",
-    user: "aluno",
-    password: "sptech",
+    user: "root",
+    password: "16267988",
     pool: {
         max: 10,
         min: 0,
@@ -21,8 +21,8 @@ var sqlServerConfig = {
 var mySqlConfig = {
     server: "localhost",
     database: "mangaverse",
-    user: "aluno",
-    password: "sptech",
+    user: "root",
+    password: "16267988",
 };
 
 function executar(instrucao) {

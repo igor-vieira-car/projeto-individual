@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="css/stylePagManga.css">
     <title>Document</title>
     <link rel="stylesheet" href="./css/pagManga.css">
+    <script src="js/funcoes.js"></script>
 </head>
 
 <body>
@@ -20,15 +21,15 @@
                 <div style="display: flex; align-items: center;">
                     <div
                         style="height:8VH; width: 900%; background-color:  aliceblue;  border-bottom: 1px solid #1B263B;">
-                    </div><span> 89PAG </span>
+                    </div><span id="span_paginas"> 89 </span>PAG
                 </div>
                 <div style="width: 100%;">
-                    Our Tyrant Became Young
+                    <span id="span_nome">  Our Tyrant Became Young</span>
                     <br>
-                    Nome autor
+                    <span id="span_autor"> Nome autor</span>
                 </div>
                 <div>
-                    Gênero
+                    <span id="span_genero">Gênero</span>
                 </div>
                 <div id="descManga"></div>
             </div>
@@ -83,9 +84,20 @@
                 console.log(resposta);
 
                 var pesquisa = resposta[0];
-
-                imgManga.innerHTML = `<img src="${pesquisa.linkImagem}" style="width: 100%; height: 100%;" alt="">`;
-                descManga.innerHTML = pesquisa.descriManga;
+   /*</div><span id="span_paginas"> 89PAG </span>
+                </div>
+                <div style="width: 100%;">
+                    <span id="span_nome">  Our Tyrant Became Young</span>
+                    <br>
+                    <span id="span_autor"> Nome autor</span>
+                </div>
+                <div>*/
+                imgManga.innerHTML = `<img src="${pesquisa.linkImagem}"  style="width: 100%; height: 100%; border-left-top:20px;" alt="">`;
+                descManga.innerHTML = `Gênero: ${pesquisa.descriManga}`;
+                span_nome.innerHTML = `Nome:${pesquisa.nomeManga}`
+                span_autor.innerHTML = `Autor:${pesquisa.autor}`;
+                span_paginas.innerHTML = `${pesquisa.qtdPaginas}`;
+                span_genero.innerHTML = `Genênero:${pesquisa.genero}`;
             });
         } else {
             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
@@ -199,10 +211,7 @@
 
         return false;
     }
-    function sair() {
-
-        window.location = "index.html";
-    }
+    
     /*                                     COMENTARIOS                               */
 
     fetch(`/avisos/comentarios/${sessionStorage.getItem("ID_PAGINA_MANGA")}`).then(function (comentario) {
@@ -218,8 +227,8 @@
                 for (var i = 0; i < comentario.length; i++) {
                     var comentarios = comentario[i];
                     comentariossss.innerHTML += `<div id="comentado">
-                                                    <div id="nomeUsuario">Nome usuario: ${comentarios.nomeUsuario}</div>
-                                                    <h2 id="tituloComentario">Nome titulo Comentario: ${comentarios.tituloComentario}</h2>
+                                                    <div id="nomeUsuario">Publicado por: ${comentarios.nomeUsuario}</div>
+                                                    <h2 id="tituloComentario">Titulo Comentario: ${comentarios.tituloComentario}</h2>
                                                     <div>Assunto Comentario:     ${comentarios.descComentario}</div>
                                                     
                                                     <div style="display:flex; witdh: 100%; justify-content:right; font-size: 13px; margin-top: 10%"> ${comentarios.dtComentario}</div>
