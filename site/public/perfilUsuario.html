@@ -24,7 +24,7 @@
                 <h3>Link foto perfil usuario: </h3> <br> <input value="" id="input_link" type="text">
             </div>
             <div>
-                <h3>nome: usuario </h3> <br><input value="" id="input_nome" type="text">
+                <h3>nome usuario: </h3> <br><input value="" id="input_nome" type="text">
             </div>
             <div>
                 <h3>email usuario </h3><br><input id="input_email" type="text">
@@ -39,20 +39,30 @@
         </div>
         <div class="usuario">
             <div>
-                <h3>Link foto perfil usuario: </h3> <br> <input value="" id="" type="text">
+                <h3>CEP: </h3> <br> <input value="" id="icep" type="text">
             </div>
             <div>
-                <h3>nome: usuario </h3> <br><input value="" id="" type="text">
+                <h3>Bairro </h3> <br> <input id="ibairro">
+            </div>
+            <div style="display: flex;">
+                <div>
+                    <h3>Logradouro: </h3> <br><input value="" id="ilogradouro" type="text">
+                </div>
+                <div>
+                    <h3>Número </h3> <br> <input id="inum" style="width:20%;">
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                <div>
+                    <h3>Cidade: </h3> <br><input value="" id="icidade" type="text">
+                </div>
+                <div>
+                    <h3>Estado </h3> <br> <input id="iestado" style="width:20%;">
+                </div>
             </div>
             <div>
-                <h3>email usuario </h3><br><input id="" type="text">
-            </div>
-            <div>
-                <h3>senha usuario </h3> <br> <input disabled placeholder="*******" type="password">
-            </div>
-            <div>
-                <button onclick="editar()">Adicionar endereço</button>
-                <button>excluir</button>
+                <button id="addEndereco" onclick="adicionarEndereco()">Adicionar endereço</button>
             </div>
         </div>
     </div>
@@ -66,6 +76,8 @@
     input_email.value = `${sessionStorage.EMAIL_USUARIO}`;
 
 
+
+
     function editar() {
 
         fetch(`/usuarios/editar/${sessionStorage.getItem("ID_USUARIO")}`, {
@@ -77,13 +89,13 @@
                 linkImagem: input_link,
                 nomeNovo: input_nome.value,
                 emailNovo: input_email.value,
-                
+
             })
         }).then(function (resposta) {
 
             if (resposta.ok) {
                 window.alert("ATUALIZADO COM SUCESSO");
-                
+
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -93,4 +105,145 @@
             console.log(`#ERRO: ${resposta}`);
         });
     }
+
+
+    fetch(`/usuarios/listarEndereco/${sessionStorage.getItem("ID_USUARIO")}`).then(function (resposta) {
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+            }
+
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+                console.log(resposta);
+                var feed = document.getElementById("feed_container");
+
+                    var endereco = resposta[0];
+
+                    alert(endereco.cep)
+                    icep.value =`${endereco.cep}`
+                    inum.value =`${endereco.num}`
+                    ilogradouro.value =`${endereco.logradouro}`
+                    ibairro.value =`${endereco.bairro}`
+                    icidade.value =`${endereco.cidade}`
+                    iestado.value = `${endereco.Estado}`
+
+                    document.getElementById("addEndereco").disabled = true;
+
+
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+    var idUsuario = sessionStorage.ID_USUARIO
+    function adicionarEndereco() {
+        fetch(`/usuarios/adicionarEnderco`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuarioServer: idUsuario,
+                numSever: inum.value,
+                cepServer:  icep.value.replace('-', ''),
+                logradouroServer: ilogradouro.value,
+                bairroServer: ibairro.value,
+                cidadeServer: icidade.value,
+                estadoServer: iestado.value,
+
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("CADASTRADO COM SUCESSO");
+
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+
+    /*             CEP AUTO-COMPLEMENTO                 */
+    const inputCep = document.getElementById('icep');
+    inputCep.addEventListener('blur', buscarEndereco);
+    inputCep.addEventListener('keypress', mascaraCep);
+
+
+    function buscarEndereco() {
+        let cep = inputCep.value.replace('-', '');
+        if (cep.length == 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (resposta) {
+                resposta.json()
+                    .then(function (json) {
+                        console.log(json)
+                        preencherEndereco(json)
+                    }).catch(function (e) {
+                        console.log(e);
+                    })
+            });
+        }
+    }
+
+    function preencherEndereco(endereco) {
+        let mensagem;
+
+        if (endereco.erro == true) {
+            mensagem = 'Não encontrado.'
+
+            ilogradouro.value = mensagem;
+            ibairro.value = mensagem;
+            icidade.value = mensagem;
+            iestado.value = mensagem;
+
+        } else {
+            mensagem = 'Carregando...'
+
+            ilogradouro.value = mensagem;
+            ibairro.value = mensagem;
+            icidade.value = mensagem;
+            iestado.value = mensagem;
+
+            setTimeout(function () {
+                ilogradouro.value = endereco.logradouro;
+                ibairro.value = endereco.bairro;
+                icidade.value = endereco.localidade;
+                iestado.value = endereco.uf;
+            }, 1000);
+        }
+    }
+
+
+
+    // 22222-222 => length = 9
+    function mascaraCep() {
+        console.log(inputCep.value.length)
+        if (inputCep.value.length === 5) {
+            inputCep.value += '-';
+        }
+
+        if (inputCep.value.length >= 9) {
+            // Caso ultrapasse o limite 18 caracteres,
+            // Pegue o valor que ja foi digitado a partir da posição 0
+            // Até a posição 17, 
+            // então sobre-escreva o valor do input sempre que ultrapassar o limite
+            let maximoCaracteres = inputCep.value.slice(0, 8);
+
+            inputCep.value = maximoCaracteres;
+        }
+    }
+
 </script>

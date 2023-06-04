@@ -60,6 +60,7 @@ function entrar(req, res) {
 
 }
 
+
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
@@ -77,6 +78,66 @@ function cadastrar(req, res) {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, email, senha)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
+function listarEndereco(req, res) {
+    var idUsuario = req.params.idUsuario;
+    usuarioModel.listarEndereco(idUsuario).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function adicionarEnderco(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    
+    var idUsuario = req.body.idUsuarioServer;
+    var cep = req.body.cepServer;
+    var logradouro = req.body.logradouroServer;
+    var bairro = req.body.bairroServer;
+    var cidade = req.body.cidadeServer;
+    var estado =req.body.estadoServer;
+    var num = req.body.numSever;
+    
+
+    // Faça as validações dos valores
+    if (cep == undefined) {
+        res.status(400).send("Seu cep está undefined!");
+    } else if (logradouro == undefined) {
+        res.status(400).send("Seu logradouro está undefined!");
+    } else if (bairro == undefined) {
+        res.status(400).send("Sua bairro está undefined!");
+    }else if (cidade == undefined) {
+        res.status(400).send("Sua cidade está undefined!");
+    }else if (estado == undefined) {
+        res.status(400).send("Sua estado está undefined!");
+    } else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.adicionarEnderco(cep, estado, cidade,logradouro,bairro, idUsuario, num )
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -191,9 +252,31 @@ function editar(req, res) {
 }
 
 
+function endereco(req, res) {
+    var imagem = req.body.linkImagem;
+    var idUsuario = req.params.idUsuario;
+    var nomeNovo = req.body.nomeNovo;
+    var emailNovo = req.body.emailNovo;
+
+    usuarioModel.editar(imagem, nomeNovo, emailNovo, idUsuario)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 function editarLivro(req, res) {
     var idManga = req.params.idManga;
-    var linkImagem  = req.body.linkMangaServer
+    var linkImagem = req.body.linkMangaServer
     var nomeLivro = req.body.nomeLivroServer
     var descriManga = req.body.descriMangaServer
     var generoManga = req.body.generoMangaServer
@@ -203,7 +286,7 @@ function editarLivro(req, res) {
     var autor = req.body.autorServer
 
     console.log("controollers");
-    usuarioModel.editarLivro(idManga ,linkImagem, nomeLivro, descriManga,generoManga ,qtdPaginas, idioma,editora,autor )
+    usuarioModel.editarLivro(idManga, linkImagem, nomeLivro, descriManga, generoManga, qtdPaginas, idioma, editora, autor)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -260,7 +343,9 @@ module.exports = {
     listar,
     editar,
     editarLivro,
+    listarEndereco,
     comentar,
+    adicionarEnderco,
     responder,
     testar
 }

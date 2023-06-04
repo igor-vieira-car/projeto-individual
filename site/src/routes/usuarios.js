@@ -20,6 +20,10 @@ router.post("/comentar", function (req, res) {
     usuarioController.comentar(req, res);
 });
 
+router.post("/adicionarEnderco", function (req, res) {
+    usuarioController.adicionarEnderco(req, res);
+});
+
 router.post("/responder", function (req, res) {
     usuarioController.responder(req, res);
 });
@@ -35,6 +39,15 @@ router.post("/autenticar", function (req, res) {
 router.put("/editar/:idUsuario", function (req, res) {
     usuarioController.editar(req, res);
 });
+
+router.put("/endereco/:idUsuario", function (req, res) {
+    usuarioController.endereco(req, res);
+});
+
+router.get("/listarEndereco/:idUsuario", function (req, res) {
+    usuarioController.listarEndereco(req, res);
+});
+
 
 router.put("/editarLivro/:idManga", function (req, res) {
     usuarioController.editarLivro(req, res);
