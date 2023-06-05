@@ -44,6 +44,10 @@ router.put("/endereco/:idUsuario", function (req, res) {
     usuarioController.endereco(req, res);
 });
 
+router.put("/visuLivro/:idManga", function (req, res) {
+    usuarioController.visuLivro(req, res);
+});
+
 router.get("/listarEndereco/:idUsuario", function (req, res) {
     usuarioController.listarEndereco(req, res);
 });

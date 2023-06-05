@@ -38,8 +38,8 @@ function cadastrarLivro(linkManga, nomeLivro, descriManga, generoManga, qtdPági
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO manga (linkImagem, nomeManga, descriManga, genero, qtdPaginas, idioma, editora, autor, dtLancamento, fkUsuario)
-	VALUES('${linkManga}', '${nomeLivro}', '${descriManga}', '${generoManga}', '${qtdPáginas}', '${idioma}', '${editora}', '${autor}', CURRENT_TIMESTAMP, ${fkUsuario}  );
+        INSERT INTO manga (linkImagem, nomeManga, descriManga, genero, qtdPaginas, idioma, editora, autor, clicks,dtLancamento, fkUsuario)
+	VALUES('${linkManga}', '${nomeLivro}', '${descriManga}', '${generoManga}', '${qtdPáginas}', '${idioma}','${editora}', '${autor}', 0, CURRENT_TIMESTAMP, ${fkUsuario}  );
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -89,6 +89,18 @@ function editarLivro(idManga, linkImagem, nomeLivro, descriManga, generoManga, q
     return database.executar(instrucao);
 }
 
+
+
+
+function visuLivro(idManga) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", idManga);
+    var instrucao = `
+    UPDATE manga SET clicks = clicks + 1 WHERE idManga = ${idManga};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function adicionarEnderco(cep, estado, cidade, logradouro, bairro, idUsuario, num) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", cep, estado, cidade, logradouro, bairro, num, idUsuario);
 
@@ -121,6 +133,7 @@ module.exports = {
     responder,
     cadastrarLivro,
     listar,
+    visuLivro,
     adicionarEnderco,
     listarEndereco,
     editarLivro,

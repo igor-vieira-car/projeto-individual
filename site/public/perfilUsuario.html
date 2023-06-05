@@ -117,17 +117,16 @@
                 console.log(resposta);
                 var feed = document.getElementById("feed_container");
 
-                    var endereco = resposta[0];
+                var endereco = resposta[0];
 
-                    alert(endereco.cep)
-                    icep.value =`${endereco.cep}`
-                    inum.value =`${endereco.num}`
-                    ilogradouro.value =`${endereco.logradouro}`
-                    ibairro.value =`${endereco.bairro}`
-                    icidade.value =`${endereco.cidade}`
-                    iestado.value = `${endereco.Estado}`
+                icep.value = `${endereco.cep}`
+                inum.value = `${endereco.num}`
+                ilogradouro.value = `${endereco.logradouro}`
+                ibairro.value = `${endereco.bairro}`
+                icidade.value = `${endereco.cidade}`
+                iestado.value = `${endereco.Estado}`
 
-                    document.getElementById("addEndereco").disabled = true;
+                document.getElementById("addEndereco").disabled = true;
 
 
             });
@@ -148,7 +147,7 @@
             body: JSON.stringify({
                 idUsuarioServer: idUsuario,
                 numSever: inum.value,
-                cepServer:  icep.value.replace('-', ''),
+                cepServer: icep.value.replace('-', ''),
                 logradouroServer: ilogradouro.value,
                 bairroServer: ibairro.value,
                 cidadeServer: icidade.value,
@@ -159,6 +158,12 @@
 
             if (resposta.ok) {
                 window.alert("CADASTRADO COM SUCESSO");
+
+                setTimeout(() => {
+                    window.location = "/perfilUsuario.html"
+
+                }, 1000);
+
 
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");

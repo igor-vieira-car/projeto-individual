@@ -251,6 +251,24 @@ function editar(req, res) {
 
 }
 
+function visuLivro(req, res) {
+    var idManga = req.params.idManga;
+    usuarioModel.visuLivro(idManga)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 
 function endereco(req, res) {
     var imagem = req.body.linkImagem;
@@ -341,6 +359,7 @@ module.exports = {
     cadastrar,
     cadastrarLivro,
     listar,
+    visuLivro,
     editar,
     editarLivro,
     listarEndereco,
