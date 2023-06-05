@@ -9,7 +9,18 @@ CREATE TABLE usuario(
     emailUsuario VARCHAR(45),
 	senhaUsuario VARCHAR(45)
 );
-
+CREATE TABLE endereco(
+	idEndereço INT PRIMARY KEY AUTO_INCREMENT,
+    cep char(8),
+    logradouro VARCHAR(100),
+    bairro VARCHAR(100),
+    cidade VARCHAR(100),
+    Estado VARCHAR(100),
+    num VARCHAR(45),
+    fkUsuarioEndereco INT,
+	CONSTRAINT fkUsuarioEndereco FOREIGN KEY (fkUsuarioEndereco) REFERENCES usuario(idUsuario) ON DELETE CASCADE
+   
+);
 CREATE TABLE comentarioManga(
 	idComentario INT auto_increment,
 		tituloComentario VARCHAR(100),
@@ -24,7 +35,7 @@ CREATE TABLE comentarioManga(
 	PRIMARY KEY (idComentario ,fkUsuario, fkManga ),
     constraint recursivaResposta FOREIGN KEY(fkResposta)
 		REFERENCES comentarioManga(idComentario),
-    dtComentario timestamp
+    dtComentario time
 );
 UPDATE manga SET linkImagem = '', nomeManga = '', descriManga = '', genero = '', qtdPaginas = '', idioma = '', editora ='', autor ='' WHERE idManga = '';
 CREATE TABLE manga (
