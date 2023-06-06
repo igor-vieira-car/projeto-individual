@@ -41,10 +41,10 @@ function maisVistos(idUsuario, limite_linhas) {
         ON idUsuario = fkUsuario
             WHERE idUsuario= 1 order by clicks desc limit 3;	`;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `SELECT SUM(clicks) AS total_clicks, NOW() AS data_hora_atual
+        instrucaoSql = `SELECT clicks AS total_clicks, NOW() AS data_hora_atual
         FROM manga
         JOIN usuario ON fkUsuario = idUsuario
-        WHERE idUsuario = ${idUsuario} limit 1;	`;
+        WHERE idUsuario = ${idUsuario} limit 3;	`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
