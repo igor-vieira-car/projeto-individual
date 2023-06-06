@@ -31,6 +31,51 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 
+
+function maisVistos(idUsuario, limite_linhas) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT nomeManga ,clicks FROM usuario JOIN manga
+        ON idUsuario = fkUsuario
+            WHERE idUsuario= 1 order by clicks desc limit 3;	`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `SELECT SUM(clicks) AS total_clicks, NOW() AS data_hora_atual
+        FROM manga
+        JOIN usuario ON fkUsuario = idUsuario
+        WHERE idUsuario = ${idUsuario} limit 1;	`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function tempoRealVisu(idUsuario) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `SELECT nomeManga ,clicks FROM usuario JOIN manga
+        ON idUsuario = fkUsuario
+            WHERE idUsuario= 1 order by clicks desc limit 3;	`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `SELECT SUM(clicks) AS total_clicks, NOW() AS data_hora_atual
+        FROM manga
+        JOIN usuario ON fkUsuario = idUsuario
+        WHERE idUsuario = ${idUsuario};`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function buscarMedidasEmTempoReal(idAquario) {
 
     instrucaoSql = ''
@@ -64,5 +109,7 @@ function buscarMedidasEmTempoReal(idAquario) {
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    maisVistos,
+    buscarMedidasEmTempoReal,
+    tempoRealVisu
 }
